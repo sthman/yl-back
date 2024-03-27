@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.bank.mapper.BankMapper">
+    
+    <resultMap type="Bank" id="BankResult">
+        <result property="bankId"    column="bank_id"    />
+        <result property="bankName"    column="bank_name"    />
+        <result property="bankHead"    column="bank_head"    />
+        <result property="bankAddress"    column="bank_address"    />
+        <result property="bankPublicAccount"    column="bank_public_account"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectBankVo">
+        select bank_id, bank_name, bank_head, bank_address, bank_public_account, beiyong1, beiyong2, beiyong3 from bank
+    </sql>
+
+    <select id="selectBankList" parameterType="Bank" resultMap="BankResult">
+        <include refid="selectBankVo"/>
+        <where>  
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="bankHead != null  and bankHead != ''"> and bank_head = #{bankHead}</if>
+            <if test="bankAddress != null  and bankAddress != ''"> and bank_address = #{bankAddress}</if>
+            <if test="bankPublicAccount != null  and bankPublicAccount != ''"> and bank_public_account = #{bankPublicAccount}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectBankByBankId" parameterType="Long" resultMap="BankResult">
+        <include refid="selectBankVo"/>
+        where bank_id = #{bankId}
+    </select>
+        
+    <insert id="insertBank" parameterType="Bank" useGeneratedKeys="true" keyProperty="bankId">
+        insert into bank
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bankName != null">bank_name,</if>
+            <if test="bankHead != null">bank_head,</if>
+            <if test="bankAddress != null">bank_address,</if>
+            <if test="bankPublicAccount != null">bank_public_account,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bankName != null">#{bankName},</if>
+            <if test="bankHead != null">#{bankHead},</if>
+            <if test="bankAddress != null">#{bankAddress},</if>
+            <if test="bankPublicAccount != null">#{bankPublicAccount},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBank" parameterType="Bank">
+        update bank
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bankName != null">bank_name = #{bankName},</if>
+            <if test="bankHead != null">bank_head = #{bankHead},</if>
+            <if test="bankAddress != null">bank_address = #{bankAddress},</if>
+            <if test="bankPublicAccount != null">bank_public_account = #{bankPublicAccount},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where bank_id = #{bankId}
+    </update>
+
+    <delete id="deleteBankByBankId" parameterType="Long">
+        delete from bank where bank_id = #{bankId}
+    </delete>
+
+    <delete id="deleteBankByBankIds" parameterType="String">
+        delete from bank where bank_id in 
+        <foreach item="bankId" collection="array" open="(" separator="," close=")">
+            #{bankId}
+        </foreach>
+    </delete>
+</mapper>

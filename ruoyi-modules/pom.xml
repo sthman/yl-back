@@ -15,6 +15,7 @@
         <module>ruoyi-file</module>
         <module>yl-government</module>
         <module>yl-organization</module>
+        <module>yl-bank</module>
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>
