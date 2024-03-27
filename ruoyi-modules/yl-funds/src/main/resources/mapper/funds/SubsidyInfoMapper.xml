@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.funds.mapper.SubsidyInfoMapper">
+    
+    <resultMap type="SubsidyInfo" id="SubsidyInfoResult">
+        <result property="subsidyInfoId"    column="subsidy_info_id"    />
+        <result property="subsidyTypeId"    column="subsidy_type_id"    />
+        <result property="amountFunds"    column="amount_funds"    />
+        <result property="distributionTime"    column="distribution_time"    />
+        <result property="bankId"    column="bank_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectSubsidyInfoVo">
+        select subsidy_info_id, subsidy_type_id, amount_funds, distribution_time, bank_id, user_id, beiyong1, beiyong2, beiyong3 from subsidy_info
+    </sql>
+
+    <select id="selectSubsidyInfoList" parameterType="SubsidyInfo" resultMap="SubsidyInfoResult">
+        <include refid="selectSubsidyInfoVo"/>
+        <where>  
+            <if test="subsidyTypeId != null "> and subsidy_type_id = #{subsidyTypeId}</if>
+            <if test="amountFunds != null "> and amount_funds = #{amountFunds}</if>
+            <if test="distributionTime != null "> and distribution_time = #{distributionTime}</if>
+            <if test="bankId != null "> and bank_id = #{bankId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectSubsidyInfoBySubsidyInfoId" parameterType="Long" resultMap="SubsidyInfoResult">
+        <include refid="selectSubsidyInfoVo"/>
+        where subsidy_info_id = #{subsidyInfoId}
+    </select>
+        
+    <insert id="insertSubsidyInfo" parameterType="SubsidyInfo" useGeneratedKeys="true" keyProperty="subsidyInfoId">
+        insert into subsidy_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subsidyTypeId != null">subsidy_type_id,</if>
+            <if test="amountFunds != null">amount_funds,</if>
+            <if test="distributionTime != null">distribution_time,</if>
+            <if test="bankId != null">bank_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subsidyTypeId != null">#{subsidyTypeId},</if>
+            <if test="amountFunds != null">#{amountFunds},</if>
+            <if test="distributionTime != null">#{distributionTime},</if>
+            <if test="bankId != null">#{bankId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSubsidyInfo" parameterType="SubsidyInfo">
+        update subsidy_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="subsidyTypeId != null">subsidy_type_id = #{subsidyTypeId},</if>
+            <if test="amountFunds != null">amount_funds = #{amountFunds},</if>
+            <if test="distributionTime != null">distribution_time = #{distributionTime},</if>
+            <if test="bankId != null">bank_id = #{bankId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where subsidy_info_id = #{subsidyInfoId}
+    </update>
+
+    <delete id="deleteSubsidyInfoBySubsidyInfoId" parameterType="Long">
+        delete from subsidy_info where subsidy_info_id = #{subsidyInfoId}
+    </delete>
+
+    <delete id="deleteSubsidyInfoBySubsidyInfoIds" parameterType="String">
+        delete from subsidy_info where subsidy_info_id in 
+        <foreach item="subsidyInfoId" collection="array" open="(" separator="," close=")">
+            #{subsidyInfoId}
+        </foreach>
+    </delete>
+</mapper>

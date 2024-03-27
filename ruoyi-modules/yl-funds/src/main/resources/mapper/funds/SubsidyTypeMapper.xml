@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.funds.mapper.SubsidyTypeMapper">
+    
+    <resultMap type="SubsidyType" id="SubsidyTypeResult">
+        <result property="subsidyTypeId"    column="subsidy_type_id"    />
+        <result property="subsidyTypeName"    column="subsidy_type_name"    />
+        <result property="subsidyAmount"    column="subsidy_amount"    />
+        <result property="distributionTime"    column="distribution_time"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectSubsidyTypeVo">
+        select subsidy_type_id, subsidy_type_name, subsidy_amount, distribution_time, beiyong1, beiyong2, beiyong3 from subsidy_type
+    </sql>
+
+    <select id="selectSubsidyTypeList" parameterType="SubsidyType" resultMap="SubsidyTypeResult">
+        <include refid="selectSubsidyTypeVo"/>
+        <where>  
+            <if test="subsidyTypeName != null  and subsidyTypeName != ''"> and subsidy_type_name like concat('%', #{subsidyTypeName}, '%')</if>
+            <if test="subsidyAmount != null "> and subsidy_amount = #{subsidyAmount}</if>
+            <if test="distributionTime != null "> and distribution_time = #{distributionTime}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectSubsidyTypeBySubsidyTypeId" parameterType="Long" resultMap="SubsidyTypeResult">
+        <include refid="selectSubsidyTypeVo"/>
+        where subsidy_type_id = #{subsidyTypeId}
+    </select>
+        
+    <insert id="insertSubsidyType" parameterType="SubsidyType" useGeneratedKeys="true" keyProperty="subsidyTypeId">
+        insert into subsidy_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subsidyTypeName != null">subsidy_type_name,</if>
+            <if test="subsidyAmount != null">subsidy_amount,</if>
+            <if test="distributionTime != null">distribution_time,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subsidyTypeName != null">#{subsidyTypeName},</if>
+            <if test="subsidyAmount != null">#{subsidyAmount},</if>
+            <if test="distributionTime != null">#{distributionTime},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSubsidyType" parameterType="SubsidyType">
+        update subsidy_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="subsidyTypeName != null">subsidy_type_name = #{subsidyTypeName},</if>
+            <if test="subsidyAmount != null">subsidy_amount = #{subsidyAmount},</if>
+            <if test="distributionTime != null">distribution_time = #{distributionTime},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where subsidy_type_id = #{subsidyTypeId}
+    </update>
+
+    <delete id="deleteSubsidyTypeBySubsidyTypeId" parameterType="Long">
+        delete from subsidy_type where subsidy_type_id = #{subsidyTypeId}
+    </delete>
+
+    <delete id="deleteSubsidyTypeBySubsidyTypeIds" parameterType="String">
+        delete from subsidy_type where subsidy_type_id in 
+        <foreach item="subsidyTypeId" collection="array" open="(" separator="," close=")">
+            #{subsidyTypeId}
+        </foreach>
+    </delete>
+</mapper>
