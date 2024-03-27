@@ -18,6 +18,8 @@
         <module>yl-bank</module>
         <module>yl-credit</module>
         <module>yl-funds</module>
+        <module>yl-health</module>
+        <module>yl-storehouse</module>
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>

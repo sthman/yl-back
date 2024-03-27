@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.storehouse.mapper.ItemMapper">
+    
+    <resultMap type="Item" id="ItemResult">
+        <result property="itemId"    column="item_id"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="itemTypeId"    column="item_type_id"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectItemVo">
+        select item_id, item_name, quantity, item_type_id, beiyong1, beiyong2, beiyong3 from item
+    </sql>
+
+    <select id="selectItemList" parameterType="Item" resultMap="ItemResult">
+        <include refid="selectItemVo"/>
+        <where>  
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="itemTypeId != null "> and item_type_id = #{itemTypeId}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectItemByItemId" parameterType="Long" resultMap="ItemResult">
+        <include refid="selectItemVo"/>
+        where item_id = #{itemId}
+    </select>
+        
+    <insert id="insertItem" parameterType="Item" useGeneratedKeys="true" keyProperty="itemId">
+        insert into item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemName != null">item_name,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="itemTypeId != null">item_type_id,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemName != null">#{itemName},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="itemTypeId != null">#{itemTypeId},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateItem" parameterType="Item">
+        update item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemName != null">item_name = #{itemName},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="itemTypeId != null">item_type_id = #{itemTypeId},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where item_id = #{itemId}
+    </update>
+
+    <delete id="deleteItemByItemId" parameterType="Long">
+        delete from item where item_id = #{itemId}
+    </delete>
+
+    <delete id="deleteItemByItemIds" parameterType="String">
+        delete from item where item_id in 
+        <foreach item="itemId" collection="array" open="(" separator="," close=")">
+            #{itemId}
+        </foreach>
+    </delete>
+</mapper>

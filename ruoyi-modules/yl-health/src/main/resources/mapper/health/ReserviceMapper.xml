@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.health.mapper.ReserviceMapper">
+    
+    <resultMap type="Reservice" id="ReserviceResult">
+        <result property="reserviceId"    column="reservice_id"    />
+        <result property="reserviceTypeId"    column="reservice_type_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="healthInformationId"    column="health_information_id"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectReserviceVo">
+        select reservice_id, reservice_type_id, org_id, user_id, health_information_id, beiyong1, beiyong2, beiyong3 from reservice
+    </sql>
+
+    <select id="selectReserviceList" parameterType="Reservice" resultMap="ReserviceResult">
+        <include refid="selectReserviceVo"/>
+        <where>  
+            <if test="reserviceTypeId != null "> and reservice_type_id = #{reserviceTypeId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="healthInformationId != null "> and health_information_id = #{healthInformationId}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectReserviceByReserviceId" parameterType="Long" resultMap="ReserviceResult">
+        <include refid="selectReserviceVo"/>
+        where reservice_id = #{reserviceId}
+    </select>
+        
+    <insert id="insertReservice" parameterType="Reservice" useGeneratedKeys="true" keyProperty="reserviceId">
+        insert into reservice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reserviceTypeId != null">reservice_type_id,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="healthInformationId != null">health_information_id,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reserviceTypeId != null">#{reserviceTypeId},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="healthInformationId != null">#{healthInformationId},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReservice" parameterType="Reservice">
+        update reservice
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reserviceTypeId != null">reservice_type_id = #{reserviceTypeId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="healthInformationId != null">health_information_id = #{healthInformationId},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where reservice_id = #{reserviceId}
+    </update>
+
+    <delete id="deleteReserviceByReserviceId" parameterType="Long">
+        delete from reservice where reservice_id = #{reserviceId}
+    </delete>
+
+    <delete id="deleteReserviceByReserviceIds" parameterType="String">
+        delete from reservice where reservice_id in 
+        <foreach item="reserviceId" collection="array" open="(" separator="," close=")">
+            #{reserviceId}
+        </foreach>
+    </delete>
+</mapper>

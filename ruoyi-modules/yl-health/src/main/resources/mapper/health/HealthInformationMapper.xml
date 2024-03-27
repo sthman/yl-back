@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.health.mapper.HealthInformationMapper">
+    
+    <resultMap type="HealthInformation" id="HealthInformationResult">
+        <result property="healthInformationId"    column="health_information_id"    />
+        <result property="olderId"    column="older_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="healthCondition"    column="health_condition"    />
+        <result property="uploadExcel"    column="upload_excel"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectHealthInformationVo">
+        select health_information_id, older_id, user_id, health_condition, upload_excel, beiyong1, beiyong2, beiyong3 from health_information
+    </sql>
+
+    <select id="selectHealthInformationList" parameterType="HealthInformation" resultMap="HealthInformationResult">
+        <include refid="selectHealthInformationVo"/>
+        <where>  
+            <if test="olderId != null "> and older_id = #{olderId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="healthCondition != null  and healthCondition != ''"> and health_condition = #{healthCondition}</if>
+            <if test="uploadExcel != null  and uploadExcel != ''"> and upload_excel = #{uploadExcel}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectHealthInformationByHealthInformationId" parameterType="Long" resultMap="HealthInformationResult">
+        <include refid="selectHealthInformationVo"/>
+        where health_information_id = #{healthInformationId}
+    </select>
+        
+    <insert id="insertHealthInformation" parameterType="HealthInformation" useGeneratedKeys="true" keyProperty="healthInformationId">
+        insert into health_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="olderId != null">older_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="healthCondition != null">health_condition,</if>
+            <if test="uploadExcel != null">upload_excel,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="olderId != null">#{olderId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="healthCondition != null">#{healthCondition},</if>
+            <if test="uploadExcel != null">#{uploadExcel},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHealthInformation" parameterType="HealthInformation">
+        update health_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="olderId != null">older_id = #{olderId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="healthCondition != null">health_condition = #{healthCondition},</if>
+            <if test="uploadExcel != null">upload_excel = #{uploadExcel},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where health_information_id = #{healthInformationId}
+    </update>
+
+    <delete id="deleteHealthInformationByHealthInformationId" parameterType="Long">
+        delete from health_information where health_information_id = #{healthInformationId}
+    </delete>
+
+    <delete id="deleteHealthInformationByHealthInformationIds" parameterType="String">
+        delete from health_information where health_information_id in 
+        <foreach item="healthInformationId" collection="array" open="(" separator="," close=")">
+            #{healthInformationId}
+        </foreach>
+    </delete>
+</mapper>

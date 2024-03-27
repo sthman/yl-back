@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.storehouse.mapper.ItemTypeMapper">
+    
+    <resultMap type="ItemType" id="ItemTypeResult">
+        <result property="itemTypeId"    column="item_type_id"    />
+        <result property="itemTypeName"    column="item_type_name"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectItemTypeVo">
+        select item_type_id, item_type_name, beiyong1, beiyong2, beiyong3 from item_type
+    </sql>
+
+    <select id="selectItemTypeList" parameterType="ItemType" resultMap="ItemTypeResult">
+        <include refid="selectItemTypeVo"/>
+        <where>  
+            <if test="itemTypeName != null  and itemTypeName != ''"> and item_type_name like concat('%', #{itemTypeName}, '%')</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectItemTypeByItemTypeId" parameterType="Long" resultMap="ItemTypeResult">
+        <include refid="selectItemTypeVo"/>
+        where item_type_id = #{itemTypeId}
+    </select>
+        
+    <insert id="insertItemType" parameterType="ItemType" useGeneratedKeys="true" keyProperty="itemTypeId">
+        insert into item_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemTypeName != null">item_type_name,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemTypeName != null">#{itemTypeName},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateItemType" parameterType="ItemType">
+        update item_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemTypeName != null">item_type_name = #{itemTypeName},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where item_type_id = #{itemTypeId}
+    </update>
+
+    <delete id="deleteItemTypeByItemTypeId" parameterType="Long">
+        delete from item_type where item_type_id = #{itemTypeId}
+    </delete>
+
+    <delete id="deleteItemTypeByItemTypeIds" parameterType="String">
+        delete from item_type where item_type_id in 
+        <foreach item="itemTypeId" collection="array" open="(" separator="," close=")">
+            #{itemTypeId}
+        </foreach>
+    </delete>
+</mapper>

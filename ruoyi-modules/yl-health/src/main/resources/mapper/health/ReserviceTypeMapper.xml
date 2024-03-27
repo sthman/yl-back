@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.health.mapper.ReserviceTypeMapper">
+    
+    <resultMap type="ReserviceType" id="ReserviceTypeResult">
+        <result property="reserviceTypeId"    column="reservice_type_id"    />
+        <result property="reserviceTypeName"    column="reservice_type_name"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectReserviceTypeVo">
+        select reservice_type_id, reservice_type_name, beiyong1, beiyong2, beiyong3 from reservice_type
+    </sql>
+
+    <select id="selectReserviceTypeList" parameterType="ReserviceType" resultMap="ReserviceTypeResult">
+        <include refid="selectReserviceTypeVo"/>
+        <where>  
+            <if test="reserviceTypeName != null  and reserviceTypeName != ''"> and reservice_type_name like concat('%', #{reserviceTypeName}, '%')</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectReserviceTypeByReserviceTypeId" parameterType="Long" resultMap="ReserviceTypeResult">
+        <include refid="selectReserviceTypeVo"/>
+        where reservice_type_id = #{reserviceTypeId}
+    </select>
+        
+    <insert id="insertReserviceType" parameterType="ReserviceType" useGeneratedKeys="true" keyProperty="reserviceTypeId">
+        insert into reservice_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reserviceTypeName != null">reservice_type_name,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reserviceTypeName != null">#{reserviceTypeName},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReserviceType" parameterType="ReserviceType">
+        update reservice_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reserviceTypeName != null">reservice_type_name = #{reserviceTypeName},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where reservice_type_id = #{reserviceTypeId}
+    </update>
+
+    <delete id="deleteReserviceTypeByReserviceTypeId" parameterType="Long">
+        delete from reservice_type where reservice_type_id = #{reserviceTypeId}
+    </delete>
+
+    <delete id="deleteReserviceTypeByReserviceTypeIds" parameterType="String">
+        delete from reservice_type where reservice_type_id in 
+        <foreach item="reserviceTypeId" collection="array" open="(" separator="," close=")">
+            #{reserviceTypeId}
+        </foreach>
+    </delete>
+</mapper>

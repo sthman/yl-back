@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.storehouse.mapper.RecipeMapper">
+    
+    <resultMap type="Recipe" id="RecipeResult">
+        <result property="recipeId"    column="recipe_id"    />
+        <result property="recipeName"    column="recipe_name"    />
+        <result property="recipeTime"    column="recipe_time"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectRecipeVo">
+        select recipe_id, recipe_name, recipe_time, beiyong1, beiyong2, beiyong3 from recipe
+    </sql>
+
+    <select id="selectRecipeList" parameterType="Recipe" resultMap="RecipeResult">
+        <include refid="selectRecipeVo"/>
+        <where>  
+            <if test="recipeName != null  and recipeName != ''"> and recipe_name like concat('%', #{recipeName}, '%')</if>
+            <if test="recipeTime != null "> and recipe_time = #{recipeTime}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectRecipeByRecipeId" parameterType="Long" resultMap="RecipeResult">
+        <include refid="selectRecipeVo"/>
+        where recipe_id = #{recipeId}
+    </select>
+        
+    <insert id="insertRecipe" parameterType="Recipe" useGeneratedKeys="true" keyProperty="recipeId">
+        insert into recipe
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recipeName != null">recipe_name,</if>
+            <if test="recipeTime != null">recipe_time,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recipeName != null">#{recipeName},</if>
+            <if test="recipeTime != null">#{recipeTime},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRecipe" parameterType="Recipe">
+        update recipe
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="recipeName != null">recipe_name = #{recipeName},</if>
+            <if test="recipeTime != null">recipe_time = #{recipeTime},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where recipe_id = #{recipeId}
+    </update>
+
+    <delete id="deleteRecipeByRecipeId" parameterType="Long">
+        delete from recipe where recipe_id = #{recipeId}
+    </delete>
+
+    <delete id="deleteRecipeByRecipeIds" parameterType="String">
+        delete from recipe where recipe_id in 
+        <foreach item="recipeId" collection="array" open="(" separator="," close=")">
+            #{recipeId}
+        </foreach>
+    </delete>
+</mapper>

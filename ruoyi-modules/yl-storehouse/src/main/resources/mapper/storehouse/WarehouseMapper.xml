@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.storehouse.mapper.WarehouseMapper">
+    
+    <resultMap type="Warehouse" id="WarehouseResult">
+        <result property="warehouseId"    column="warehouse_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="warehouseTypeId"    column="warehouse_type_id"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectWarehouseVo">
+        select warehouse_id, org_id, warehouse_type_id, beiyong1, beiyong2, beiyong3 from warehouse
+    </sql>
+
+    <select id="selectWarehouseList" parameterType="Warehouse" resultMap="WarehouseResult">
+        <include refid="selectWarehouseVo"/>
+        <where>  
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="warehouseTypeId != null "> and warehouse_type_id = #{warehouseTypeId}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectWarehouseByWarehouseId" parameterType="Long" resultMap="WarehouseResult">
+        <include refid="selectWarehouseVo"/>
+        where warehouse_id = #{warehouseId}
+    </select>
+        
+    <insert id="insertWarehouse" parameterType="Warehouse" useGeneratedKeys="true" keyProperty="warehouseId">
+        insert into warehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orgId != null">org_id,</if>
+            <if test="warehouseTypeId != null">warehouse_type_id,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orgId != null">#{orgId},</if>
+            <if test="warehouseTypeId != null">#{warehouseTypeId},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWarehouse" parameterType="Warehouse">
+        update warehouse
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="warehouseTypeId != null">warehouse_type_id = #{warehouseTypeId},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where warehouse_id = #{warehouseId}
+    </update>
+
+    <delete id="deleteWarehouseByWarehouseId" parameterType="Long">
+        delete from warehouse where warehouse_id = #{warehouseId}
+    </delete>
+
+    <delete id="deleteWarehouseByWarehouseIds" parameterType="String">
+        delete from warehouse where warehouse_id in 
+        <foreach item="warehouseId" collection="array" open="(" separator="," close=")">
+            #{warehouseId}
+        </foreach>
+    </delete>
+</mapper>
