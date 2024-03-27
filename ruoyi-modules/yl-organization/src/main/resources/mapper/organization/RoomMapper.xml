@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.organization.mapper.RoomMapper">
+    
+    <resultMap type="Room" id="RoomResult">
+        <result property="roomId"    column="room_id"    />
+        <result property="roomNum"    column="room_num"    />
+        <result property="roomState"    column="room_state"    />
+        <result property="roomAmount"    column="room_amount"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectRoomVo">
+        select room_id, room_num, room_state, room_amount, org_id, beiyong1, beiyong2, beiyong3 from room
+    </sql>
+
+    <select id="selectRoomList" parameterType="Room" resultMap="RoomResult">
+        <include refid="selectRoomVo"/>
+        <where>  
+            <if test="roomNum != null "> and room_num = #{roomNum}</if>
+            <if test="roomState != null "> and room_state = #{roomState}</if>
+            <if test="roomAmount != null "> and room_amount = #{roomAmount}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectRoomByRoomId" parameterType="Long" resultMap="RoomResult">
+        <include refid="selectRoomVo"/>
+        where room_id = #{roomId}
+    </select>
+        
+    <insert id="insertRoom" parameterType="Room" useGeneratedKeys="true" keyProperty="roomId">
+        insert into room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roomNum != null">room_num,</if>
+            <if test="roomState != null">room_state,</if>
+            <if test="roomAmount != null">room_amount,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roomNum != null">#{roomNum},</if>
+            <if test="roomState != null">#{roomState},</if>
+            <if test="roomAmount != null">#{roomAmount},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRoom" parameterType="Room">
+        update room
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roomNum != null">room_num = #{roomNum},</if>
+            <if test="roomState != null">room_state = #{roomState},</if>
+            <if test="roomAmount != null">room_amount = #{roomAmount},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where room_id = #{roomId}
+    </update>
+
+    <delete id="deleteRoomByRoomId" parameterType="Long">
+        delete from room where room_id = #{roomId}
+    </delete>
+
+    <delete id="deleteRoomByRoomIds" parameterType="String">
+        delete from room where room_id in 
+        <foreach item="roomId" collection="array" open="(" separator="," close=")">
+            #{roomId}
+        </foreach>
+    </delete>
+</mapper>

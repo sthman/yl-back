@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.government.mapper.CategoryTypeMapper">
+    
+    <resultMap type="CategoryType" id="CategoryTypeResult">
+        <result property="categoryTypeId"    column="category_type_id"    />
+        <result property="categoryTypeName"    column="category_type_name"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectCategoryTypeVo">
+        select category_type_id, category_type_name, beiyong1, beiyong2, beiyong3 from category_type
+    </sql>
+
+    <select id="selectCategoryTypeList" parameterType="CategoryType" resultMap="CategoryTypeResult">
+        <include refid="selectCategoryTypeVo"/>
+        <where>  
+            <if test="categoryTypeName != null  and categoryTypeName != ''"> and category_type_name like concat('%', #{categoryTypeName}, '%')</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectCategoryTypeByCategoryTypeId" parameterType="Long" resultMap="CategoryTypeResult">
+        <include refid="selectCategoryTypeVo"/>
+        where category_type_id = #{categoryTypeId}
+    </select>
+        
+    <insert id="insertCategoryType" parameterType="CategoryType" useGeneratedKeys="true" keyProperty="categoryTypeId">
+        insert into category_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryTypeName != null">category_type_name,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryTypeName != null">#{categoryTypeName},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCategoryType" parameterType="CategoryType">
+        update category_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="categoryTypeName != null">category_type_name = #{categoryTypeName},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where category_type_id = #{categoryTypeId}
+    </update>
+
+    <delete id="deleteCategoryTypeByCategoryTypeId" parameterType="Long">
+        delete from category_type where category_type_id = #{categoryTypeId}
+    </delete>
+
+    <delete id="deleteCategoryTypeByCategoryTypeIds" parameterType="String">
+        delete from category_type where category_type_id in 
+        <foreach item="categoryTypeId" collection="array" open="(" separator="," close=")">
+            #{categoryTypeId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.organization.mapper.OrganizationMapper">
+    
+    <resultMap type="Organization" id="OrganizationResult">
+        <result property="orgId"    column="org_id"    />
+        <result property="orgName"    column="org_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orgAddress"    column="org_address"    />
+        <result property="orgPhone"    column="org_phone"    />
+        <result property="orgCard"    column="org_card"    />
+        <result property="orgStar"    column="org_star"    />
+        <result property="orgTypeId"    column="org_type_id"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectOrganizationVo">
+        select org_id, org_name, user_id, org_address, org_phone, org_card, org_star, org_type_id, beiyong1, beiyong2, beiyong3 from organization
+    </sql>
+
+    <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
+        <where>  
+            <if test="orgName != null  and orgName != ''"> and org_name like concat('%', #{orgName}, '%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="orgAddress != null  and orgAddress != ''"> and org_address = #{orgAddress}</if>
+            <if test="orgPhone != null  and orgPhone != ''"> and org_phone = #{orgPhone}</if>
+            <if test="orgCard != null  and orgCard != ''"> and org_card = #{orgCard}</if>
+            <if test="orgStar != null "> and org_star = #{orgStar}</if>
+            <if test="orgTypeId != null "> and org_type_id = #{orgTypeId}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectOrganizationByOrgId" parameterType="Long" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
+        where org_id = #{orgId}
+    </select>
+        
+    <insert id="insertOrganization" parameterType="Organization" useGeneratedKeys="true" keyProperty="orgId">
+        insert into organization
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orgName != null">org_name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="orgAddress != null">org_address,</if>
+            <if test="orgPhone != null">org_phone,</if>
+            <if test="orgCard != null">org_card,</if>
+            <if test="orgStar != null">org_star,</if>
+            <if test="orgTypeId != null">org_type_id,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orgName != null">#{orgName},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="orgAddress != null">#{orgAddress},</if>
+            <if test="orgPhone != null">#{orgPhone},</if>
+            <if test="orgCard != null">#{orgCard},</if>
+            <if test="orgStar != null">#{orgStar},</if>
+            <if test="orgTypeId != null">#{orgTypeId},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOrganization" parameterType="Organization">
+        update organization
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orgName != null">org_name = #{orgName},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orgAddress != null">org_address = #{orgAddress},</if>
+            <if test="orgPhone != null">org_phone = #{orgPhone},</if>
+            <if test="orgCard != null">org_card = #{orgCard},</if>
+            <if test="orgStar != null">org_star = #{orgStar},</if>
+            <if test="orgTypeId != null">org_type_id = #{orgTypeId},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where org_id = #{orgId}
+    </update>
+
+    <delete id="deleteOrganizationByOrgId" parameterType="Long">
+        delete from organization where org_id = #{orgId}
+    </delete>
+
+    <delete id="deleteOrganizationByOrgIds" parameterType="String">
+        delete from organization where org_id in 
+        <foreach item="orgId" collection="array" open="(" separator="," close=")">
+            #{orgId}
+        </foreach>
+    </delete>
+</mapper>

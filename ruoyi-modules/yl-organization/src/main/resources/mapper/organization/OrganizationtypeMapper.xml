@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.organization.mapper.OrganizationtypeMapper">
+    
+    <resultMap type="Organizationtype" id="OrganizationtypeResult">
+        <result property="orgTypeId"    column="org_type_id"    />
+        <result property="orgTypeName"    column="org_type_name"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectOrganizationtypeVo">
+        select org_type_id, org_type_name, beiyong1, beiyong2, beiyong3 from organizationtype
+    </sql>
+
+    <select id="selectOrganizationtypeList" parameterType="Organizationtype" resultMap="OrganizationtypeResult">
+        <include refid="selectOrganizationtypeVo"/>
+        <where>  
+            <if test="orgTypeName != null  and orgTypeName != ''"> and org_type_name like concat('%', #{orgTypeName}, '%')</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectOrganizationtypeByOrgTypeId" parameterType="Long" resultMap="OrganizationtypeResult">
+        <include refid="selectOrganizationtypeVo"/>
+        where org_type_id = #{orgTypeId}
+    </select>
+        
+    <insert id="insertOrganizationtype" parameterType="Organizationtype" useGeneratedKeys="true" keyProperty="orgTypeId">
+        insert into organizationtype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orgTypeName != null">org_type_name,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orgTypeName != null">#{orgTypeName},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOrganizationtype" parameterType="Organizationtype">
+        update organizationtype
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orgTypeName != null">org_type_name = #{orgTypeName},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where org_type_id = #{orgTypeId}
+    </update>
+
+    <delete id="deleteOrganizationtypeByOrgTypeId" parameterType="Long">
+        delete from organizationtype where org_type_id = #{orgTypeId}
+    </delete>
+
+    <delete id="deleteOrganizationtypeByOrgTypeIds" parameterType="String">
+        delete from organizationtype where org_type_id in 
+        <foreach item="orgTypeId" collection="array" open="(" separator="," close=")">
+            #{orgTypeId}
+        </foreach>
+    </delete>
+</mapper>

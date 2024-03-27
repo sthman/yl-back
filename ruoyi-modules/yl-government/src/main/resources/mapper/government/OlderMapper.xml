@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.government.mapper.OlderMapper">
+    
+    <resultMap type="Older" id="OlderResult">
+        <result property="olderAge"    column="older_age"    />
+        <result property="olderBirthdate"    column="older_birthdate"    />
+        <result property="olderAddress"    column="older_address"    />
+        <result property="olderCaremethod"    column="older_caremethod"    />
+        <result property="olderBankCardNumber"    column="older_bank_card_number"    />
+        <result property="olderUserStatus"    column="older_user_status"    />
+        <result property="userId"    column="user_id"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectOlderVo">
+        select older_age, older_birthdate, older_address, older_caremethod, older_bank_card_number, older_user_status, user_id, beiyong1, beiyong2, beiyong3 from older
+    </sql>
+
+    <select id="selectOlderList" parameterType="Older" resultMap="OlderResult">
+        <include refid="selectOlderVo"/>
+        <where>  
+            <if test="olderAge != null "> and older_age = #{olderAge}</if>
+            <if test="olderBirthdate != null "> and older_birthdate = #{olderBirthdate}</if>
+            <if test="olderAddress != null  and olderAddress != ''"> and older_address = #{olderAddress}</if>
+            <if test="olderCaremethod != null  and olderCaremethod != ''"> and older_caremethod = #{olderCaremethod}</if>
+            <if test="olderBankCardNumber != null  and olderBankCardNumber != ''"> and older_bank_card_number = #{olderBankCardNumber}</if>
+            <if test="olderUserStatus != null "> and older_user_status = #{olderUserStatus}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectOlderByOlderAge" parameterType="Long" resultMap="OlderResult">
+        <include refid="selectOlderVo"/>
+        where older_age = #{olderAge}
+    </select>
+        
+    <insert id="insertOlder" parameterType="Older">
+        insert into older
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="olderAge != null">older_age,</if>
+            <if test="olderBirthdate != null">older_birthdate,</if>
+            <if test="olderAddress != null">older_address,</if>
+            <if test="olderCaremethod != null">older_caremethod,</if>
+            <if test="olderBankCardNumber != null">older_bank_card_number,</if>
+            <if test="olderUserStatus != null">older_user_status,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="olderAge != null">#{olderAge},</if>
+            <if test="olderBirthdate != null">#{olderBirthdate},</if>
+            <if test="olderAddress != null">#{olderAddress},</if>
+            <if test="olderCaremethod != null">#{olderCaremethod},</if>
+            <if test="olderBankCardNumber != null">#{olderBankCardNumber},</if>
+            <if test="olderUserStatus != null">#{olderUserStatus},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOlder" parameterType="Older">
+        update older
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="olderBirthdate != null">older_birthdate = #{olderBirthdate},</if>
+            <if test="olderAddress != null">older_address = #{olderAddress},</if>
+            <if test="olderCaremethod != null">older_caremethod = #{olderCaremethod},</if>
+            <if test="olderBankCardNumber != null">older_bank_card_number = #{olderBankCardNumber},</if>
+            <if test="olderUserStatus != null">older_user_status = #{olderUserStatus},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where older_age = #{olderAge}
+    </update>
+
+    <delete id="deleteOlderByOlderAge" parameterType="Long">
+        delete from older where older_age = #{olderAge}
+    </delete>
+
+    <delete id="deleteOlderByOlderAges" parameterType="String">
+        delete from older where older_age in 
+        <foreach item="olderAge" collection="array" open="(" separator="," close=")">
+            #{olderAge}
+        </foreach>
+    </delete>
+</mapper>
