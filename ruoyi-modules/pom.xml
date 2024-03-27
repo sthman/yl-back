@@ -20,6 +20,8 @@
         <module>yl-funds</module>
         <module>yl-health</module>
         <module>yl-storehouse</module>
+        <module>yl-tickets</module>
+        <module>yl-volunteer</module>
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>

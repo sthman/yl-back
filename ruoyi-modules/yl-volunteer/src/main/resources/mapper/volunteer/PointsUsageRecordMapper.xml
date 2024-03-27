@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.volunteer.mapper.PointsUsageRecordMapper">
+    
+    <resultMap type="PointsUsageRecord" id="PointsUsageRecordResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="usageTime"    column="usage_time"    />
+        <result property="usageDetails"    column="usage_details"    />
+        <result property="serviceId"    column="service_id"    />
+        <result property="serviceTimes"    column="service_times"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectPointsUsageRecordVo">
+        select record_id, usage_time, usage_details, service_id, service_times, beiyong1, beiyong2, beiyong3 from points_usage_record
+    </sql>
+
+    <select id="selectPointsUsageRecordList" parameterType="PointsUsageRecord" resultMap="PointsUsageRecordResult">
+        <include refid="selectPointsUsageRecordVo"/>
+        <where>  
+            <if test="usageTime != null "> and usage_time = #{usageTime}</if>
+            <if test="usageDetails != null  and usageDetails != ''"> and usage_details = #{usageDetails}</if>
+            <if test="serviceId != null "> and service_id = #{serviceId}</if>
+            <if test="serviceTimes != null "> and service_times = #{serviceTimes}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectPointsUsageRecordByRecordId" parameterType="Long" resultMap="PointsUsageRecordResult">
+        <include refid="selectPointsUsageRecordVo"/>
+        where record_id = #{recordId}
+    </select>
+        
+    <insert id="insertPointsUsageRecord" parameterType="PointsUsageRecord" useGeneratedKeys="true" keyProperty="recordId">
+        insert into points_usage_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="usageTime != null">usage_time,</if>
+            <if test="usageDetails != null">usage_details,</if>
+            <if test="serviceId != null">service_id,</if>
+            <if test="serviceTimes != null">service_times,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="usageTime != null">#{usageTime},</if>
+            <if test="usageDetails != null">#{usageDetails},</if>
+            <if test="serviceId != null">#{serviceId},</if>
+            <if test="serviceTimes != null">#{serviceTimes},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePointsUsageRecord" parameterType="PointsUsageRecord">
+        update points_usage_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="usageTime != null">usage_time = #{usageTime},</if>
+            <if test="usageDetails != null">usage_details = #{usageDetails},</if>
+            <if test="serviceId != null">service_id = #{serviceId},</if>
+            <if test="serviceTimes != null">service_times = #{serviceTimes},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deletePointsUsageRecordByRecordId" parameterType="Long">
+        delete from points_usage_record where record_id = #{recordId}
+    </delete>
+
+    <delete id="deletePointsUsageRecordByRecordIds" parameterType="String">
+        delete from points_usage_record where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>

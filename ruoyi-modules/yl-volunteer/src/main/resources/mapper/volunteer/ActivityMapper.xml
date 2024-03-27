@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.volunteer.mapper.ActivityMapper">
+    
+    <resultMap type="Activity" id="ActivityResult">
+        <result property="activityId"    column="activity_id"    />
+        <result property="volunteerId"    column="volunteer_id"    />
+        <result property="status"    column="status"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectActivityVo">
+        select activity_id, volunteer_id, status, beiyong1, beiyong2, beiyong3 from activity
+    </sql>
+
+    <select id="selectActivityList" parameterType="Activity" resultMap="ActivityResult">
+        <include refid="selectActivityVo"/>
+        <where>  
+            <if test="activityId != null "> and activity_id = #{activityId}</if>
+            <if test="volunteerId != null "> and volunteer_id = #{volunteerId}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectActivityByActivityId" parameterType="Long" resultMap="ActivityResult">
+        <include refid="selectActivityVo"/>
+        where activity_id = #{activityId}
+    </select>
+        
+    <insert id="insertActivity" parameterType="Activity">
+        insert into activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">activity_id,</if>
+            <if test="volunteerId != null">volunteer_id,</if>
+            <if test="status != null">status,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">#{activityId},</if>
+            <if test="volunteerId != null">#{volunteerId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateActivity" parameterType="Activity">
+        update activity
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="volunteerId != null">volunteer_id = #{volunteerId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where activity_id = #{activityId}
+    </update>
+
+    <delete id="deleteActivityByActivityId" parameterType="Long">
+        delete from activity where activity_id = #{activityId}
+    </delete>
+
+    <delete id="deleteActivityByActivityIds" parameterType="String">
+        delete from activity where activity_id in 
+        <foreach item="activityId" collection="array" open="(" separator="," close=")">
+            #{activityId}
+        </foreach>
+    </delete>
+</mapper>

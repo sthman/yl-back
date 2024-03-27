@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.volunteer.mapper.VolunteerActivityMapper">
+    
+    <resultMap type="VolunteerActivity" id="VolunteerActivityResult">
+        <result property="vactivityId"    column="vactivity_id"    />
+        <result property="vactivityName"    column="vactivity_name"    />
+        <result property="vactivityContent"    column="vactivity_content"    />
+        <result property="publishingOrgId"    column="publishing_org_id"    />
+        <result property="publishingOrgType"    column="publishing_org_type"    />
+        <result property="vactivityNum"    column="vactivity_num"    />
+        <result property="remainingCount"    column="remaining_count"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="vactivityStatus"    column="vactivity_status"    />
+        <result property="vactivityAddress"    column="vactivity_address"    />
+        <result property="vactivityStar"    column="vactivity_star"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectVolunteerActivityVo">
+        select vactivity_id, vactivity_name, vactivity_content, publishing_org_id, publishing_org_type, vactivity_num, remaining_count, start_time, vactivity_status, vactivity_address, vactivity_star, end_time, beiyong1, beiyong2, beiyong3 from volunteer_activity
+    </sql>
+
+    <select id="selectVolunteerActivityList" parameterType="VolunteerActivity" resultMap="VolunteerActivityResult">
+        <include refid="selectVolunteerActivityVo"/>
+        <where>  
+            <if test="vactivityName != null  and vactivityName != ''"> and vactivity_name like concat('%', #{vactivityName}, '%')</if>
+            <if test="vactivityContent != null  and vactivityContent != ''"> and vactivity_content = #{vactivityContent}</if>
+            <if test="publishingOrgId != null "> and publishing_org_id = #{publishingOrgId}</if>
+            <if test="publishingOrgType != null "> and publishing_org_type = #{publishingOrgType}</if>
+            <if test="vactivityNum != null "> and vactivity_num = #{vactivityNum}</if>
+            <if test="remainingCount != null "> and remaining_count = #{remainingCount}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="vactivityStatus != null "> and vactivity_status = #{vactivityStatus}</if>
+            <if test="vactivityAddress != null  and vactivityAddress != ''"> and vactivity_address = #{vactivityAddress}</if>
+            <if test="vactivityStar != null "> and vactivity_star = #{vactivityStar}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectVolunteerActivityByVactivityId" parameterType="Long" resultMap="VolunteerActivityResult">
+        <include refid="selectVolunteerActivityVo"/>
+        where vactivity_id = #{vactivityId}
+    </select>
+        
+    <insert id="insertVolunteerActivity" parameterType="VolunteerActivity" useGeneratedKeys="true" keyProperty="vactivityId">
+        insert into volunteer_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vactivityName != null">vactivity_name,</if>
+            <if test="vactivityContent != null">vactivity_content,</if>
+            <if test="publishingOrgId != null">publishing_org_id,</if>
+            <if test="publishingOrgType != null">publishing_org_type,</if>
+            <if test="vactivityNum != null">vactivity_num,</if>
+            <if test="remainingCount != null">remaining_count,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="vactivityStatus != null">vactivity_status,</if>
+            <if test="vactivityAddress != null">vactivity_address,</if>
+            <if test="vactivityStar != null">vactivity_star,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vactivityName != null">#{vactivityName},</if>
+            <if test="vactivityContent != null">#{vactivityContent},</if>
+            <if test="publishingOrgId != null">#{publishingOrgId},</if>
+            <if test="publishingOrgType != null">#{publishingOrgType},</if>
+            <if test="vactivityNum != null">#{vactivityNum},</if>
+            <if test="remainingCount != null">#{remainingCount},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="vactivityStatus != null">#{vactivityStatus},</if>
+            <if test="vactivityAddress != null">#{vactivityAddress},</if>
+            <if test="vactivityStar != null">#{vactivityStar},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVolunteerActivity" parameterType="VolunteerActivity">
+        update volunteer_activity
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vactivityName != null">vactivity_name = #{vactivityName},</if>
+            <if test="vactivityContent != null">vactivity_content = #{vactivityContent},</if>
+            <if test="publishingOrgId != null">publishing_org_id = #{publishingOrgId},</if>
+            <if test="publishingOrgType != null">publishing_org_type = #{publishingOrgType},</if>
+            <if test="vactivityNum != null">vactivity_num = #{vactivityNum},</if>
+            <if test="remainingCount != null">remaining_count = #{remainingCount},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="vactivityStatus != null">vactivity_status = #{vactivityStatus},</if>
+            <if test="vactivityAddress != null">vactivity_address = #{vactivityAddress},</if>
+            <if test="vactivityStar != null">vactivity_star = #{vactivityStar},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where vactivity_id = #{vactivityId}
+    </update>
+
+    <delete id="deleteVolunteerActivityByVactivityId" parameterType="Long">
+        delete from volunteer_activity where vactivity_id = #{vactivityId}
+    </delete>
+
+    <delete id="deleteVolunteerActivityByVactivityIds" parameterType="String">
+        delete from volunteer_activity where vactivity_id in 
+        <foreach item="vactivityId" collection="array" open="(" separator="," close=")">
+            #{vactivityId}
+        </foreach>
+    </delete>
+</mapper>

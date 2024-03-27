@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.tickets.mapper.WorkOrderMapper">
+    
+    <resultMap type="WorkOrder" id="WorkOrderResult">
+        <result property="workOrderId"    column="work_order_id"    />
+        <result property="workOrderName"    column="work_order_name"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="responsiblePerson"    column="responsible_person"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="telworkId"    column="telwork_id"    />
+        <result property="executedStatus"    column="executed_status"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectWorkOrderVo">
+        select work_order_id, work_order_name, org_id, responsible_person, created_time, end_time, telwork_id, executed_status, beiyong1, beiyong2, beiyong3 from work_order
+    </sql>
+
+    <select id="selectWorkOrderList" parameterType="WorkOrder" resultMap="WorkOrderResult">
+        <include refid="selectWorkOrderVo"/>
+        <where>  
+            <if test="workOrderName != null  and workOrderName != ''"> and work_order_name like concat('%', #{workOrderName}, '%')</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="responsiblePerson != null "> and responsible_person = #{responsiblePerson}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="telworkId != null "> and telwork_id = #{telworkId}</if>
+            <if test="executedStatus != null "> and executed_status = #{executedStatus}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectWorkOrderByWorkOrderId" parameterType="Long" resultMap="WorkOrderResult">
+        <include refid="selectWorkOrderVo"/>
+        where work_order_id = #{workOrderId}
+    </select>
+        
+    <insert id="insertWorkOrder" parameterType="WorkOrder" useGeneratedKeys="true" keyProperty="workOrderId">
+        insert into work_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderName != null">work_order_name,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="responsiblePerson != null">responsible_person,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="telworkId != null">telwork_id,</if>
+            <if test="executedStatus != null">executed_status,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workOrderName != null">#{workOrderName},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="responsiblePerson != null">#{responsiblePerson},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="telworkId != null">#{telworkId},</if>
+            <if test="executedStatus != null">#{executedStatus},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWorkOrder" parameterType="WorkOrder">
+        update work_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="workOrderName != null">work_order_name = #{workOrderName},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="responsiblePerson != null">responsible_person = #{responsiblePerson},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="telworkId != null">telwork_id = #{telworkId},</if>
+            <if test="executedStatus != null">executed_status = #{executedStatus},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where work_order_id = #{workOrderId}
+    </update>
+
+    <delete id="deleteWorkOrderByWorkOrderId" parameterType="Long">
+        delete from work_order where work_order_id = #{workOrderId}
+    </delete>
+
+    <delete id="deleteWorkOrderByWorkOrderIds" parameterType="String">
+        delete from work_order where work_order_id in 
+        <foreach item="workOrderId" collection="array" open="(" separator="," close=")">
+            #{workOrderId}
+        </foreach>
+    </delete>
+</mapper>

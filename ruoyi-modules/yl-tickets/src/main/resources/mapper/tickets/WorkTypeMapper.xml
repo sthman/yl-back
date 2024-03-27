@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.tickets.mapper.WorkTypeMapper">
+    
+    <resultMap type="WorkType" id="WorkTypeResult">
+        <result property="orderTypeId"    column="order_type_id"    />
+        <result property="orderTypeName"    column="order_type_name"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectWorkTypeVo">
+        select order_type_id, order_type_name, beiyong1, beiyong2, beiyong3 from work_type
+    </sql>
+
+    <select id="selectWorkTypeList" parameterType="WorkType" resultMap="WorkTypeResult">
+        <include refid="selectWorkTypeVo"/>
+        <where>  
+            <if test="orderTypeName != null  and orderTypeName != ''"> and order_type_name like concat('%', #{orderTypeName}, '%')</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectWorkTypeByOrderTypeId" parameterType="Long" resultMap="WorkTypeResult">
+        <include refid="selectWorkTypeVo"/>
+        where order_type_id = #{orderTypeId}
+    </select>
+        
+    <insert id="insertWorkType" parameterType="WorkType" useGeneratedKeys="true" keyProperty="orderTypeId">
+        insert into work_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderTypeName != null">order_type_name,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderTypeName != null">#{orderTypeName},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWorkType" parameterType="WorkType">
+        update work_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderTypeName != null">order_type_name = #{orderTypeName},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where order_type_id = #{orderTypeId}
+    </update>
+
+    <delete id="deleteWorkTypeByOrderTypeId" parameterType="Long">
+        delete from work_type where order_type_id = #{orderTypeId}
+    </delete>
+
+    <delete id="deleteWorkTypeByOrderTypeIds" parameterType="String">
+        delete from work_type where order_type_id in 
+        <foreach item="orderTypeId" collection="array" open="(" separator="," close=")">
+            #{orderTypeId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.tickets.mapper.TelworkMapper">
+    
+    <resultMap type="Telwork" id="TelworkResult">
+        <result property="telworkId"    column="telwork_id"    />
+        <result property="telworkNumber"    column="telwork_number"    />
+        <result property="telworkName"    column="telwork_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userPhone"    column="user_phone"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="applicanDispatcherId"    column="applican_dispatcher_id"    />
+        <result property="creationTime"    column="creation_time"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="orderTypeId"    column="order_type_id"    />
+        <result property="executionPersonnel"    column="execution_personnel"    />
+        <result property="responsibleOrgType"    column="responsible_org_type"    />
+        <result property="workOrderContent"    column="work_order_content"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectTelworkVo">
+        select telwork_id, telwork_number, telwork_name, user_id, user_phone, org_id, applican_dispatcher_id, creation_time, order_status, order_type_id, execution_personnel, responsible_org_type, work_order_content, end_time, beiyong1, beiyong2, beiyong3 from telwork
+    </sql>
+
+    <select id="selectTelworkList" parameterType="Telwork" resultMap="TelworkResult">
+        <include refid="selectTelworkVo"/>
+        <where>  
+            <if test="telworkNumber != null  and telworkNumber != ''"> and telwork_number = #{telworkNumber}</if>
+            <if test="telworkName != null  and telworkName != ''"> and telwork_name like concat('%', #{telworkName}, '%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userPhone != null  and userPhone != ''"> and user_phone = #{userPhone}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="applicanDispatcherId != null "> and applican_dispatcher_id = #{applicanDispatcherId}</if>
+            <if test="creationTime != null "> and creation_time = #{creationTime}</if>
+            <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
+            <if test="orderTypeId != null "> and order_type_id = #{orderTypeId}</if>
+            <if test="executionPersonnel != null "> and execution_personnel = #{executionPersonnel}</if>
+            <if test="responsibleOrgType != null  and responsibleOrgType != ''"> and responsible_org_type = #{responsibleOrgType}</if>
+            <if test="workOrderContent != null  and workOrderContent != ''"> and work_order_content = #{workOrderContent}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectTelworkByTelworkId" parameterType="Long" resultMap="TelworkResult">
+        <include refid="selectTelworkVo"/>
+        where telwork_id = #{telworkId}
+    </select>
+        
+    <insert id="insertTelwork" parameterType="Telwork" useGeneratedKeys="true" keyProperty="telworkId">
+        insert into telwork
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="telworkNumber != null">telwork_number,</if>
+            <if test="telworkName != null">telwork_name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userPhone != null">user_phone,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="applicanDispatcherId != null">applican_dispatcher_id,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="orderStatus != null">order_status,</if>
+            <if test="orderTypeId != null">order_type_id,</if>
+            <if test="executionPersonnel != null">execution_personnel,</if>
+            <if test="responsibleOrgType != null">responsible_org_type,</if>
+            <if test="workOrderContent != null">work_order_content,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="telworkNumber != null">#{telworkNumber},</if>
+            <if test="telworkName != null">#{telworkName},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userPhone != null">#{userPhone},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="applicanDispatcherId != null">#{applicanDispatcherId},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="orderTypeId != null">#{orderTypeId},</if>
+            <if test="executionPersonnel != null">#{executionPersonnel},</if>
+            <if test="responsibleOrgType != null">#{responsibleOrgType},</if>
+            <if test="workOrderContent != null">#{workOrderContent},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTelwork" parameterType="Telwork">
+        update telwork
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="telworkNumber != null">telwork_number = #{telworkNumber},</if>
+            <if test="telworkName != null">telwork_name = #{telworkName},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userPhone != null">user_phone = #{userPhone},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="applicanDispatcherId != null">applican_dispatcher_id = #{applicanDispatcherId},</if>
+            <if test="creationTime != null">creation_time = #{creationTime},</if>
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="orderTypeId != null">order_type_id = #{orderTypeId},</if>
+            <if test="executionPersonnel != null">execution_personnel = #{executionPersonnel},</if>
+            <if test="responsibleOrgType != null">responsible_org_type = #{responsibleOrgType},</if>
+            <if test="workOrderContent != null">work_order_content = #{workOrderContent},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where telwork_id = #{telworkId}
+    </update>
+
+    <delete id="deleteTelworkByTelworkId" parameterType="Long">
+        delete from telwork where telwork_id = #{telworkId}
+    </delete>
+
+    <delete id="deleteTelworkByTelworkIds" parameterType="String">
+        delete from telwork where telwork_id in 
+        <foreach item="telworkId" collection="array" open="(" separator="," close=")">
+            #{telworkId}
+        </foreach>
+    </delete>
+</mapper>

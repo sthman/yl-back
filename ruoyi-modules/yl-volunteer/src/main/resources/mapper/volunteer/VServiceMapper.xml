@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.volunteer.mapper.VServiceMapper">
+    
+    <resultMap type="VService" id="VServiceResult">
+        <result property="vServiceId"    column="v_service_id"    />
+        <result property="vServiceName"    column="v_service_name"    />
+        <result property="spendPoints"    column="spend_points"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectVServiceVo">
+        select v_service_id, v_service_name, spend_points, beiyong1, beiyong2, beiyong3 from v_service
+    </sql>
+
+    <select id="selectVServiceList" parameterType="VService" resultMap="VServiceResult">
+        <include refid="selectVServiceVo"/>
+        <where>  
+            <if test="vServiceName != null  and vServiceName != ''"> and v_service_name like concat('%', #{vServiceName}, '%')</if>
+            <if test="spendPoints != null "> and spend_points = #{spendPoints}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectVServiceByVServiceId" parameterType="Long" resultMap="VServiceResult">
+        <include refid="selectVServiceVo"/>
+        where v_service_id = #{vServiceId}
+    </select>
+        
+    <insert id="insertVService" parameterType="VService" useGeneratedKeys="true" keyProperty="vServiceId">
+        insert into v_service
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vServiceName != null">v_service_name,</if>
+            <if test="spendPoints != null">spend_points,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vServiceName != null">#{vServiceName},</if>
+            <if test="spendPoints != null">#{spendPoints},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVService" parameterType="VService">
+        update v_service
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vServiceName != null">v_service_name = #{vServiceName},</if>
+            <if test="spendPoints != null">spend_points = #{spendPoints},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where v_service_id = #{vServiceId}
+    </update>
+
+    <delete id="deleteVServiceByVServiceId" parameterType="Long">
+        delete from v_service where v_service_id = #{vServiceId}
+    </delete>
+
+    <delete id="deleteVServiceByVServiceIds" parameterType="String">
+        delete from v_service where v_service_id in 
+        <foreach item="vServiceId" collection="array" open="(" separator="," close=")">
+            #{vServiceId}
+        </foreach>
+    </delete>
+</mapper>
