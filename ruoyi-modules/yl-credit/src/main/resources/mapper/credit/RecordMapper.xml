@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.credit.mapper.RecordMapper">
+    
+    <resultMap type="Record" id="RecordResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="score"    column="score"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="reason"    column="reason"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectRecordVo">
+        select record_id, score, org_id, reason, beiyong1, beiyong2, beiyong3 from record
+    </sql>
+
+    <select id="selectRecordList" parameterType="Record" resultMap="RecordResult">
+        <include refid="selectRecordVo"/>
+        <where>  
+            <if test="score != null "> and score = #{score}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectRecordByRecordId" parameterType="Long" resultMap="RecordResult">
+        <include refid="selectRecordVo"/>
+        where record_id = #{recordId}
+    </select>
+        
+    <insert id="insertRecord" parameterType="Record" useGeneratedKeys="true" keyProperty="recordId">
+        insert into record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="score != null">score,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="reason != null">reason,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="score != null">#{score},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRecord" parameterType="Record">
+        update record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="score != null">score = #{score},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteRecordByRecordId" parameterType="Long">
+        delete from record where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteRecordByRecordIds" parameterType="String">
+        delete from record where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>

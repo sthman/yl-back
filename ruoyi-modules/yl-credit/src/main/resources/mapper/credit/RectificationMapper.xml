@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.credit.mapper.RectificationMapper">
+    
+    <resultMap type="Rectification" id="RectificationResult">
+        <result property="rectificationId"    column="rectification_id"    />
+        <result property="rectificationContent"    column="rectification_content"    />
+        <result property="rectifyingImage"    column="rectifying_image"    />
+        <result property="submissionTime"    column="submission_time"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="rectificationStatus"    column="rectification_status"    />
+        <result property="rectificationTime"    column="rectification_time"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectRectificationVo">
+        select rectification_id, rectification_content, rectifying_image, submission_time, org_id, rectification_status, rectification_time, beiyong1, beiyong2, beiyong3 from rectification
+    </sql>
+
+    <select id="selectRectificationList" parameterType="Rectification" resultMap="RectificationResult">
+        <include refid="selectRectificationVo"/>
+        <where>  
+            <if test="rectificationContent != null  and rectificationContent != ''"> and rectification_content = #{rectificationContent}</if>
+            <if test="rectifyingImage != null  and rectifyingImage != ''"> and rectifying_image = #{rectifyingImage}</if>
+            <if test="submissionTime != null "> and submission_time = #{submissionTime}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="rectificationStatus != null "> and rectification_status = #{rectificationStatus}</if>
+            <if test="rectificationTime != null "> and rectification_time = #{rectificationTime}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectRectificationByRectificationId" parameterType="Long" resultMap="RectificationResult">
+        <include refid="selectRectificationVo"/>
+        where rectification_id = #{rectificationId}
+    </select>
+        
+    <insert id="insertRectification" parameterType="Rectification" useGeneratedKeys="true" keyProperty="rectificationId">
+        insert into rectification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rectificationContent != null">rectification_content,</if>
+            <if test="rectifyingImage != null">rectifying_image,</if>
+            <if test="submissionTime != null">submission_time,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="rectificationStatus != null">rectification_status,</if>
+            <if test="rectificationTime != null">rectification_time,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rectificationContent != null">#{rectificationContent},</if>
+            <if test="rectifyingImage != null">#{rectifyingImage},</if>
+            <if test="submissionTime != null">#{submissionTime},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="rectificationStatus != null">#{rectificationStatus},</if>
+            <if test="rectificationTime != null">#{rectificationTime},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRectification" parameterType="Rectification">
+        update rectification
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="rectificationContent != null">rectification_content = #{rectificationContent},</if>
+            <if test="rectifyingImage != null">rectifying_image = #{rectifyingImage},</if>
+            <if test="submissionTime != null">submission_time = #{submissionTime},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="rectificationStatus != null">rectification_status = #{rectificationStatus},</if>
+            <if test="rectificationTime != null">rectification_time = #{rectificationTime},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where rectification_id = #{rectificationId}
+    </update>
+
+    <delete id="deleteRectificationByRectificationId" parameterType="Long">
+        delete from rectification where rectification_id = #{rectificationId}
+    </delete>
+
+    <delete id="deleteRectificationByRectificationIds" parameterType="String">
+        delete from rectification where rectification_id in 
+        <foreach item="rectificationId" collection="array" open="(" separator="," close=")">
+            #{rectificationId}
+        </foreach>
+    </delete>
+</mapper>

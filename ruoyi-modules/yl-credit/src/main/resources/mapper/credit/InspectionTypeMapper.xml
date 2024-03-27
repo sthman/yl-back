@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.credit.mapper.InspectionTypeMapper">
+    
+    <resultMap type="InspectionType" id="InspectionTypeResult">
+        <result property="inspectionTypeId"    column="inspection_type_id"    />
+        <result property="inspectionTypeName"    column="inspection_type_name"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectInspectionTypeVo">
+        select inspection_type_id, inspection_type_name, beiyong1, beiyong2, beiyong3 from inspection_type
+    </sql>
+
+    <select id="selectInspectionTypeList" parameterType="InspectionType" resultMap="InspectionTypeResult">
+        <include refid="selectInspectionTypeVo"/>
+        <where>  
+            <if test="inspectionTypeName != null  and inspectionTypeName != ''"> and inspection_type_name like concat('%', #{inspectionTypeName}, '%')</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectInspectionTypeByInspectionTypeId" parameterType="Long" resultMap="InspectionTypeResult">
+        <include refid="selectInspectionTypeVo"/>
+        where inspection_type_id = #{inspectionTypeId}
+    </select>
+        
+    <insert id="insertInspectionType" parameterType="InspectionType" useGeneratedKeys="true" keyProperty="inspectionTypeId">
+        insert into inspection_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="inspectionTypeName != null">inspection_type_name,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="inspectionTypeName != null">#{inspectionTypeName},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInspectionType" parameterType="InspectionType">
+        update inspection_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inspectionTypeName != null">inspection_type_name = #{inspectionTypeName},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where inspection_type_id = #{inspectionTypeId}
+    </update>
+
+    <delete id="deleteInspectionTypeByInspectionTypeId" parameterType="Long">
+        delete from inspection_type where inspection_type_id = #{inspectionTypeId}
+    </delete>
+
+    <delete id="deleteInspectionTypeByInspectionTypeIds" parameterType="String">
+        delete from inspection_type where inspection_type_id in 
+        <foreach item="inspectionTypeId" collection="array" open="(" separator="," close=")">
+            #{inspectionTypeId}
+        </foreach>
+    </delete>
+</mapper>

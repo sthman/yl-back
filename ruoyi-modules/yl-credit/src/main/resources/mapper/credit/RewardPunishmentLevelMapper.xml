@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.credit.mapper.RewardPunishmentLevelMapper">
+    
+    <resultMap type="RewardPunishmentLevel" id="RewardPunishmentLevelResult">
+        <result property="rewardPunishmentLevelId"    column="reward_punishment_level_id"    />
+        <result property="rewardPunishmentLevelContent"    column="reward_punishment_level_content"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectRewardPunishmentLevelVo">
+        select reward_punishment_level_id, reward_punishment_level_content, beiyong1, beiyong2, beiyong3 from reward_punishment_level
+    </sql>
+
+    <select id="selectRewardPunishmentLevelList" parameterType="RewardPunishmentLevel" resultMap="RewardPunishmentLevelResult">
+        <include refid="selectRewardPunishmentLevelVo"/>
+        <where>  
+            <if test="rewardPunishmentLevelContent != null "> and reward_punishment_level_content = #{rewardPunishmentLevelContent}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectRewardPunishmentLevelByRewardPunishmentLevelId" parameterType="Long" resultMap="RewardPunishmentLevelResult">
+        <include refid="selectRewardPunishmentLevelVo"/>
+        where reward_punishment_level_id = #{rewardPunishmentLevelId}
+    </select>
+        
+    <insert id="insertRewardPunishmentLevel" parameterType="RewardPunishmentLevel" useGeneratedKeys="true" keyProperty="rewardPunishmentLevelId">
+        insert into reward_punishment_level
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rewardPunishmentLevelContent != null">reward_punishment_level_content,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rewardPunishmentLevelContent != null">#{rewardPunishmentLevelContent},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRewardPunishmentLevel" parameterType="RewardPunishmentLevel">
+        update reward_punishment_level
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="rewardPunishmentLevelContent != null">reward_punishment_level_content = #{rewardPunishmentLevelContent},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where reward_punishment_level_id = #{rewardPunishmentLevelId}
+    </update>
+
+    <delete id="deleteRewardPunishmentLevelByRewardPunishmentLevelId" parameterType="Long">
+        delete from reward_punishment_level where reward_punishment_level_id = #{rewardPunishmentLevelId}
+    </delete>
+
+    <delete id="deleteRewardPunishmentLevelByRewardPunishmentLevelIds" parameterType="String">
+        delete from reward_punishment_level where reward_punishment_level_id in 
+        <foreach item="rewardPunishmentLevelId" collection="array" open="(" separator="," close=")">
+            #{rewardPunishmentLevelId}
+        </foreach>
+    </delete>
+</mapper>

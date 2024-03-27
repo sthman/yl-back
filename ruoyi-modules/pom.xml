@@ -16,6 +16,7 @@
         <module>yl-government</module>
         <module>yl-organization</module>
         <module>yl-bank</module>
+        <module>yl-credit</module>
     </modules>
 
     <artifactId>ruoyi-modules</artifactId>

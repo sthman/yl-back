@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.credit.mapper.InspectionMapper">
+    
+    <resultMap type="Inspection" id="InspectionResult">
+        <result property="inspectionId"    column="inspection_id"    />
+        <result property="inspectionTypeId"    column="inspection_type_id"    />
+        <result property="orgId"    column="org_id"    />
+        <result property="requiresCorrection"    column="requires_correction"    />
+        <result property="correctionIssues"    column="correction_issues"    />
+        <result property="image1"    column="image1"    />
+        <result property="image2"    column="image2"    />
+        <result property="image3"    column="image3"    />
+        <result property="inspectionTime"    column="inspection_time"    />
+        <result property="beiyong1"    column="beiyong1"    />
+        <result property="beiyong2"    column="beiyong2"    />
+        <result property="beiyong3"    column="beiyong3"    />
+    </resultMap>
+
+    <sql id="selectInspectionVo">
+        select inspection_id, inspection_type_id, org_id, requires_correction, correction_issues, image1, image2, image3, inspection_time, beiyong1, beiyong2, beiyong3 from inspection
+    </sql>
+
+    <select id="selectInspectionList" parameterType="Inspection" resultMap="InspectionResult">
+        <include refid="selectInspectionVo"/>
+        <where>  
+            <if test="inspectionTypeId != null "> and inspection_type_id = #{inspectionTypeId}</if>
+            <if test="orgId != null "> and org_id = #{orgId}</if>
+            <if test="requiresCorrection != null  and requiresCorrection != ''"> and requires_correction = #{requiresCorrection}</if>
+            <if test="correctionIssues != null  and correctionIssues != ''"> and correction_issues = #{correctionIssues}</if>
+            <if test="image1 != null  and image1 != ''"> and image1 = #{image1}</if>
+            <if test="image2 != null  and image2 != ''"> and image2 = #{image2}</if>
+            <if test="image3 != null  and image3 != ''"> and image3 = #{image3}</if>
+            <if test="inspectionTime != null "> and inspection_time = #{inspectionTime}</if>
+            <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
+            <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
+            <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
+        </where>
+    </select>
+    
+    <select id="selectInspectionByInspectionId" parameterType="Long" resultMap="InspectionResult">
+        <include refid="selectInspectionVo"/>
+        where inspection_id = #{inspectionId}
+    </select>
+        
+    <insert id="insertInspection" parameterType="Inspection" useGeneratedKeys="true" keyProperty="inspectionId">
+        insert into inspection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="inspectionTypeId != null">inspection_type_id,</if>
+            <if test="orgId != null">org_id,</if>
+            <if test="requiresCorrection != null">requires_correction,</if>
+            <if test="correctionIssues != null">correction_issues,</if>
+            <if test="image1 != null">image1,</if>
+            <if test="image2 != null">image2,</if>
+            <if test="image3 != null">image3,</if>
+            <if test="inspectionTime != null">inspection_time,</if>
+            <if test="beiyong1 != null">beiyong1,</if>
+            <if test="beiyong2 != null">beiyong2,</if>
+            <if test="beiyong3 != null">beiyong3,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="inspectionTypeId != null">#{inspectionTypeId},</if>
+            <if test="orgId != null">#{orgId},</if>
+            <if test="requiresCorrection != null">#{requiresCorrection},</if>
+            <if test="correctionIssues != null">#{correctionIssues},</if>
+            <if test="image1 != null">#{image1},</if>
+            <if test="image2 != null">#{image2},</if>
+            <if test="image3 != null">#{image3},</if>
+            <if test="inspectionTime != null">#{inspectionTime},</if>
+            <if test="beiyong1 != null">#{beiyong1},</if>
+            <if test="beiyong2 != null">#{beiyong2},</if>
+            <if test="beiyong3 != null">#{beiyong3},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInspection" parameterType="Inspection">
+        update inspection
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inspectionTypeId != null">inspection_type_id = #{inspectionTypeId},</if>
+            <if test="orgId != null">org_id = #{orgId},</if>
+            <if test="requiresCorrection != null">requires_correction = #{requiresCorrection},</if>
+            <if test="correctionIssues != null">correction_issues = #{correctionIssues},</if>
+            <if test="image1 != null">image1 = #{image1},</if>
+            <if test="image2 != null">image2 = #{image2},</if>
+            <if test="image3 != null">image3 = #{image3},</if>
+            <if test="inspectionTime != null">inspection_time = #{inspectionTime},</if>
+            <if test="beiyong1 != null">beiyong1 = #{beiyong1},</if>
+            <if test="beiyong2 != null">beiyong2 = #{beiyong2},</if>
+            <if test="beiyong3 != null">beiyong3 = #{beiyong3},</if>
+        </trim>
+        where inspection_id = #{inspectionId}
+    </update>
+
+    <delete id="deleteInspectionByInspectionId" parameterType="Long">
+        delete from inspection where inspection_id = #{inspectionId}
+    </delete>
+
+    <delete id="deleteInspectionByInspectionIds" parameterType="String">
+        delete from inspection where inspection_id in 
+        <foreach item="inspectionId" collection="array" open="(" separator="," close=")">
+            #{inspectionId}
+        </foreach>
+    </delete>
+</mapper>
