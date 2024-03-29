@@ -38,8 +38,28 @@ public class Volunteer extends BaseEntity
     /** 备用列3 */
     @Excel(name = "备用列3")
     private String beiyong3;
+    @Excel(name = "用户名字")
+    private String userName;
+    @Excel(name = "用户昵称")
+    private String userNikeName;
 
-    public void setvStar(Long vStar) 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserNikeName() {
+        return userNikeName;
+    }
+
+    public void setUserNikeName(String userNikeName) {
+        this.userNikeName = userNikeName;
+    }
+
+    public void setvStar(Long vStar)
     {
         this.vStar = vStar;
     }
@@ -103,6 +123,8 @@ public class Volunteer extends BaseEntity
             .append("beiyong1", getBeiyong1())
             .append("beiyong2", getBeiyong2())
             .append("beiyong3", getBeiyong3())
+            .append("userName",getUserName())
+            .append("userNikeName",getUserNikeName())
             .toString();
     }
 }

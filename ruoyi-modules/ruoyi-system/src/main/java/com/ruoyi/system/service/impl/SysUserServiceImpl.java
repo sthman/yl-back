@@ -258,11 +258,14 @@ public class SysUserServiceImpl implements ISysUserService
     {
         // 新增用户信息
         int rows = userMapper.insertUser(user);
+
+        int userId = Integer.parseInt((String.valueOf(user.getUserId())));
         // 新增用户岗位关联
         insertUserPost(user);
         // 新增用户与角色管理
         insertUserRole(user);
-        return rows;
+
+        return userId;
     }
 
     /**

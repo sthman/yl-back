@@ -3,6 +3,10 @@ package com.ruoyi.volunteer.controller;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.security.utils.SecurityUtils;
+import com.ruoyi.system.api.domain.SysUser;
+import com.ruoyi.system.api.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +34,7 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/vactivity")
+
 public class VolunteerActivityController extends BaseController
 {
     @Autowired
@@ -78,7 +83,25 @@ public class VolunteerActivityController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody VolunteerActivity volunteerActivity)
     {
-        return toAjax(volunteerActivityService.insertVolunteerActivity(volunteerActivity));
+        //获取当前登录用户id
+        Long userId = SecurityUtils.getUserId();
+        volunteerActivity.setPublishingOrgId(userId);
+
+        //TODO 需要当前登录的管理员所属的机构id和机构类型
+
+
+//        SysUser sysUser = SecurityUtils.getLoginUser().getSysUser();
+
+
+        //初始化剩余人数
+        volunteerActivity.setRemainingCount(volunteerActivity.getVactivityNum());
+        //初始化招募状态
+        volunteerActivity.setVactivityStatus(1L);
+        System.out.println("volunteerActivity = " + volunteerActivity);
+
+
+        return null;
+//        return toAjax(volunteerActivityService.insertVolunteerActivity(volunteerActivity));
     }
 
     /**
