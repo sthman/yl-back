@@ -1,6 +1,11 @@
 package com.ruoyi.volunteer.service.impl;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import com.ruoyi.volunteer.domain.PointsUsageRecord;
+import com.ruoyi.volunteer.service.IPointsUsageRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.volunteer.mapper.VServiceMapper;
@@ -18,6 +23,8 @@ public class VServiceServiceImpl implements IVServiceService
 {
     @Autowired
     private VServiceMapper vServiceMapper;
+    @Autowired
+    private IPointsUsageRecordService iPointsUsageRecordService;
 
     /**
      * 查询积分服务
@@ -89,5 +96,12 @@ public class VServiceServiceImpl implements IVServiceService
     public int deleteVServiceByVServiceId(Long vServiceId)
     {
         return vServiceMapper.deleteVServiceByVServiceId(vServiceId);
+    }
+
+    //购买积分服务
+    @Override
+    public int buyVservice(PointsUsageRecord pointsUsageRecord) {
+        pointsUsageRecord.setUsageTime(new Date());
+        return iPointsUsageRecordService.insertPointsUsageRecord(pointsUsageRecord);
     }
 }
