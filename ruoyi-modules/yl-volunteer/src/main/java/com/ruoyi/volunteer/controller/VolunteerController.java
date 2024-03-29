@@ -1,8 +1,12 @@
 package com.ruoyi.volunteer.controller;
 
 import java.util.List;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.core.constant.SecurityConstants;
+import com.ruoyi.common.core.domain.R;
+import com.ruoyi.system.api.RemoteUserService;
+import com.ruoyi.system.api.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +36,8 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
 @RequestMapping("/volunteer")
 public class VolunteerController extends BaseController
 {
+    @Autowired
+    private RemoteUserService remoteUserService;
     @Autowired
     private IVolunteerService volunteerService;
 
@@ -78,6 +84,18 @@ public class VolunteerController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Volunteer volunteer)
     {
+        SysUser sysUser = new SysUser();
+        sysUser.setUserName(volunteer.getUserName());
+        sysUser.setNickName(volunteer.getUserNikeName());
+        sysUser.setStatus(String.valueOf(0));
+        Long[] roleIds = {102L};
+        sysUser.setRoleIds(roleIds);
+        sysUser.setPassword(String.valueOf(123456));
+
+        R<Integer> integerR = remoteUserService.addUserInfo(sysUser, SecurityConstants.INNER);
+        Integer userId = integerR.getData();
+        volunteer.setUserId(Long.valueOf(userId));
+        volunteer.setvStatus(1L);
         return toAjax(volunteerService.insertVolunteer(volunteer));
     }
 
