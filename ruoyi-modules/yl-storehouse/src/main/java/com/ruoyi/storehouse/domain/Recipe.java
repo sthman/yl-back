@@ -9,9 +9,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
  * 食谱对象 recipe
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 public class Recipe extends BaseEntity
 {
@@ -41,57 +41,57 @@ public class Recipe extends BaseEntity
     @Excel(name = "备用列3")
     private String beiyong3;
 
-    public void setRecipeId(Long recipeId) 
+    public void setRecipeId(Long recipeId)
     {
         this.recipeId = recipeId;
     }
 
-    public Long getRecipeId() 
+    public Long getRecipeId()
     {
         return recipeId;
     }
-    public void setRecipeName(String recipeName) 
+    public void setRecipeName(String recipeName)
     {
         this.recipeName = recipeName;
     }
 
-    public String getRecipeName() 
+    public String getRecipeName()
     {
         return recipeName;
     }
-    public void setRecipeTime(Date recipeTime) 
+    public void setRecipeTime(Date recipeTime)
     {
         this.recipeTime = recipeTime;
     }
 
-    public Date getRecipeTime() 
+    public Date getRecipeTime()
     {
         return recipeTime;
     }
-    public void setBeiyong1(String beiyong1) 
+    public void setBeiyong1(String beiyong1)
     {
         this.beiyong1 = beiyong1;
     }
 
-    public String getBeiyong1() 
+    public String getBeiyong1()
     {
         return beiyong1;
     }
-    public void setBeiyong2(String beiyong2) 
+    public void setBeiyong2(String beiyong2)
     {
         this.beiyong2 = beiyong2;
     }
 
-    public String getBeiyong2() 
+    public String getBeiyong2()
     {
         return beiyong2;
     }
-    public void setBeiyong3(String beiyong3) 
+    public void setBeiyong3(String beiyong3)
     {
         this.beiyong3 = beiyong3;
     }
 
-    public String getBeiyong3() 
+    public String getBeiyong3()
     {
         return beiyong3;
     }

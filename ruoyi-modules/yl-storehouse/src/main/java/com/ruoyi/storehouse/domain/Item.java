@@ -7,9 +7,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
  * 物品对象 item
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 public class Item extends BaseEntity
 {
@@ -42,66 +42,66 @@ public class Item extends BaseEntity
     @Excel(name = "备用列3")
     private String beiyong3;
 
-    public void setItemId(Long itemId) 
+    public void setItemId(Long itemId)
     {
         this.itemId = itemId;
     }
 
-    public Long getItemId() 
+    public Long getItemId()
     {
         return itemId;
     }
-    public void setItemName(String itemName) 
+    public void setItemName(String itemName)
     {
         this.itemName = itemName;
     }
 
-    public String getItemName() 
+    public String getItemName()
     {
         return itemName;
     }
-    public void setQuantity(Long quantity) 
+    public void setQuantity(Long quantity)
     {
         this.quantity = quantity;
     }
 
-    public Long getQuantity() 
+    public Long getQuantity()
     {
         return quantity;
     }
-    public void setItemTypeId(Long itemTypeId) 
+    public void setItemTypeId(Long itemTypeId)
     {
         this.itemTypeId = itemTypeId;
     }
 
-    public Long getItemTypeId() 
+    public Long getItemTypeId()
     {
         return itemTypeId;
     }
-    public void setBeiyong1(String beiyong1) 
+    public void setBeiyong1(String beiyong1)
     {
         this.beiyong1 = beiyong1;
     }
 
-    public String getBeiyong1() 
+    public String getBeiyong1()
     {
         return beiyong1;
     }
-    public void setBeiyong2(String beiyong2) 
+    public void setBeiyong2(String beiyong2)
     {
         this.beiyong2 = beiyong2;
     }
 
-    public String getBeiyong2() 
+    public String getBeiyong2()
     {
         return beiyong2;
     }
-    public void setBeiyong3(String beiyong3) 
+    public void setBeiyong3(String beiyong3)
     {
         this.beiyong3 = beiyong3;
     }
 
-    public String getBeiyong3() 
+    public String getBeiyong3()
     {
         return beiyong3;
     }

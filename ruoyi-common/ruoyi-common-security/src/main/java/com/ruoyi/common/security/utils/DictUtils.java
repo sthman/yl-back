@@ -11,14 +11,14 @@ import com.ruoyi.system.api.domain.SysDictData;
 
 /**
  * 字典工具类
- * 
+ *
  * @author ruoyi
  */
 public class DictUtils
 {
     /**
      * 设置字典缓存
-     * 
+     *
      * @param key 参数键
      * @param dictDatas 字典数据列表
      */
@@ -29,7 +29,7 @@ public class DictUtils
 
     /**
      * 获取字典缓存
-     * 
+     *
      * @param key 参数键
      * @return dictDatas 字典数据列表
      */
@@ -45,7 +45,7 @@ public class DictUtils
 
     /**
      * 删除指定字典缓存
-     * 
+     *
      * @param key 字典键
      */
     public static void removeDictCache(String key)
@@ -64,7 +64,7 @@ public class DictUtils
 
     /**
      * 设置cache key
-     * 
+     *
      * @param configKey 参数键
      * @return 缓存键key
      */

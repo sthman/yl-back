@@ -9,19 +9,19 @@ import com.ruoyi.storehouse.service.IFacilityUsageRecordService;
 
 /**
  * 设施使用记录Service业务层处理
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 @Service
-public class FacilityUsageRecordServiceImpl implements IFacilityUsageRecordService 
+public class FacilityUsageRecordServiceImpl implements IFacilityUsageRecordService
 {
     @Autowired
     private FacilityUsageRecordMapper facilityUsageRecordMapper;
 
     /**
      * 查询设施使用记录
-     * 
+     *
      * @param recordId 设施使用记录主键
      * @return 设施使用记录
      */
@@ -33,7 +33,7 @@ public class FacilityUsageRecordServiceImpl implements IFacilityUsageRecordServi
 
     /**
      * 查询设施使用记录列表
-     * 
+     *
      * @param facilityUsageRecord 设施使用记录
      * @return 设施使用记录
      */
@@ -45,7 +45,7 @@ public class FacilityUsageRecordServiceImpl implements IFacilityUsageRecordServi
 
     /**
      * 新增设施使用记录
-     * 
+     *
      * @param facilityUsageRecord 设施使用记录
      * @return 结果
      */
@@ -57,7 +57,7 @@ public class FacilityUsageRecordServiceImpl implements IFacilityUsageRecordServi
 
     /**
      * 修改设施使用记录
-     * 
+     *
      * @param facilityUsageRecord 设施使用记录
      * @return 结果
      */
@@ -69,7 +69,7 @@ public class FacilityUsageRecordServiceImpl implements IFacilityUsageRecordServi
 
     /**
      * 批量删除设施使用记录
-     * 
+     *
      * @param recordIds 需要删除的设施使用记录主键
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class FacilityUsageRecordServiceImpl implements IFacilityUsageRecordServi
 
     /**
      * 删除设施使用记录信息
-     * 
+     *
      * @param recordId 设施使用记录主键
      * @return 结果
      */

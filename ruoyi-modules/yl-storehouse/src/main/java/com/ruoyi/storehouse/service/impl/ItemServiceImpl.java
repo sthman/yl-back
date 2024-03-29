@@ -9,19 +9,19 @@ import com.ruoyi.storehouse.service.IItemService;
 
 /**
  * 物品Service业务层处理
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 @Service
-public class ItemServiceImpl implements IItemService 
+public class ItemServiceImpl implements IItemService
 {
     @Autowired
     private ItemMapper itemMapper;
 
     /**
      * 查询物品
-     * 
+     *
      * @param itemId 物品主键
      * @return 物品
      */
@@ -33,7 +33,7 @@ public class ItemServiceImpl implements IItemService
 
     /**
      * 查询物品列表
-     * 
+     *
      * @param item 物品
      * @return 物品
      */
@@ -45,7 +45,7 @@ public class ItemServiceImpl implements IItemService
 
     /**
      * 新增物品
-     * 
+     *
      * @param item 物品
      * @return 结果
      */
@@ -57,7 +57,7 @@ public class ItemServiceImpl implements IItemService
 
     /**
      * 修改物品
-     * 
+     *
      * @param item 物品
      * @return 结果
      */
@@ -69,7 +69,7 @@ public class ItemServiceImpl implements IItemService
 
     /**
      * 批量删除物品
-     * 
+     *
      * @param itemIds 需要删除的物品主键
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class ItemServiceImpl implements IItemService
 
     /**
      * 删除物品信息
-     * 
+     *
      * @param itemId 物品主键
      * @return 结果
      */

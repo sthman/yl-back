@@ -5,15 +5,15 @@ import com.ruoyi.storehouse.domain.FacilityUsageRecord;
 
 /**
  * 设施使用记录Mapper接口
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
-public interface FacilityUsageRecordMapper 
+public interface FacilityUsageRecordMapper
 {
     /**
      * 查询设施使用记录
-     * 
+     *
      * @param recordId 设施使用记录主键
      * @return 设施使用记录
      */
@@ -21,7 +21,7 @@ public interface FacilityUsageRecordMapper
 
     /**
      * 查询设施使用记录列表
-     * 
+     *
      * @param facilityUsageRecord 设施使用记录
      * @return 设施使用记录集合
      */
@@ -29,7 +29,7 @@ public interface FacilityUsageRecordMapper
 
     /**
      * 新增设施使用记录
-     * 
+     *
      * @param facilityUsageRecord 设施使用记录
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface FacilityUsageRecordMapper
 
     /**
      * 修改设施使用记录
-     * 
+     *
      * @param facilityUsageRecord 设施使用记录
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface FacilityUsageRecordMapper
 
     /**
      * 删除设施使用记录
-     * 
+     *
      * @param recordId 设施使用记录主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface FacilityUsageRecordMapper
 
     /**
      * 批量删除设施使用记录
-     * 
+     *
      * @param recordIds 需要删除的数据主键集合
      * @return 结果
      */

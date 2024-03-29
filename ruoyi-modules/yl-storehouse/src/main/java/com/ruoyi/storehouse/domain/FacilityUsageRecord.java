@@ -9,9 +9,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
  * 设施使用记录对象 facility_usage_record
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 public class FacilityUsageRecord extends BaseEntity
 {
@@ -54,84 +54,84 @@ public class FacilityUsageRecord extends BaseEntity
     @Excel(name = "备用列3")
     private String beiyong3;
 
-    public void setRecordId(Long recordId) 
+    public void setRecordId(Long recordId)
     {
         this.recordId = recordId;
     }
 
-    public Long getRecordId() 
+    public Long getRecordId()
     {
         return recordId;
     }
-    public void setUserId(Long userId) 
+    public void setUserId(Long userId)
     {
         this.userId = userId;
     }
 
-    public Long getUserId() 
+    public Long getUserId()
     {
         return userId;
     }
-    public void setUsageStartTime(Date usageStartTime) 
+    public void setUsageStartTime(Date usageStartTime)
     {
         this.usageStartTime = usageStartTime;
     }
 
-    public Date getUsageStartTime() 
+    public Date getUsageStartTime()
     {
         return usageStartTime;
     }
-    public void setUsageEndTime(Date usageEndTime) 
+    public void setUsageEndTime(Date usageEndTime)
     {
         this.usageEndTime = usageEndTime;
     }
 
-    public Date getUsageEndTime() 
+    public Date getUsageEndTime()
     {
         return usageEndTime;
     }
-    public void setOrgId(Long orgId) 
+    public void setOrgId(Long orgId)
     {
         this.orgId = orgId;
     }
 
-    public Long getOrgId() 
+    public Long getOrgId()
     {
         return orgId;
     }
-    public void setItemId(Long itemId) 
+    public void setItemId(Long itemId)
     {
         this.itemId = itemId;
     }
 
-    public Long getItemId() 
+    public Long getItemId()
     {
         return itemId;
     }
-    public void setBeiyong1(String beiyong1) 
+    public void setBeiyong1(String beiyong1)
     {
         this.beiyong1 = beiyong1;
     }
 
-    public String getBeiyong1() 
+    public String getBeiyong1()
     {
         return beiyong1;
     }
-    public void setBeiyong2(String beiyong2) 
+    public void setBeiyong2(String beiyong2)
     {
         this.beiyong2 = beiyong2;
     }
 
-    public String getBeiyong2() 
+    public String getBeiyong2()
     {
         return beiyong2;
     }
-    public void setBeiyong3(String beiyong3) 
+    public void setBeiyong3(String beiyong3)
     {
         this.beiyong3 = beiyong3;
     }
 
-    public String getBeiyong3() 
+    public String getBeiyong3()
     {
         return beiyong3;
     }

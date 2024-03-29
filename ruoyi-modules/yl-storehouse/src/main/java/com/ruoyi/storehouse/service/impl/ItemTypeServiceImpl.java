@@ -9,19 +9,19 @@ import com.ruoyi.storehouse.service.IItemTypeService;
 
 /**
  * 物品类型Service业务层处理
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 @Service
-public class ItemTypeServiceImpl implements IItemTypeService 
+public class ItemTypeServiceImpl implements IItemTypeService
 {
     @Autowired
     private ItemTypeMapper itemTypeMapper;
 
     /**
      * 查询物品类型
-     * 
+     *
      * @param itemTypeId 物品类型主键
      * @return 物品类型
      */
@@ -33,7 +33,7 @@ public class ItemTypeServiceImpl implements IItemTypeService
 
     /**
      * 查询物品类型列表
-     * 
+     *
      * @param itemType 物品类型
      * @return 物品类型
      */
@@ -45,7 +45,7 @@ public class ItemTypeServiceImpl implements IItemTypeService
 
     /**
      * 新增物品类型
-     * 
+     *
      * @param itemType 物品类型
      * @return 结果
      */
@@ -57,7 +57,7 @@ public class ItemTypeServiceImpl implements IItemTypeService
 
     /**
      * 修改物品类型
-     * 
+     *
      * @param itemType 物品类型
      * @return 结果
      */
@@ -69,7 +69,7 @@ public class ItemTypeServiceImpl implements IItemTypeService
 
     /**
      * 批量删除物品类型
-     * 
+     *
      * @param itemTypeIds 需要删除的物品类型主键
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class ItemTypeServiceImpl implements IItemTypeService
 
     /**
      * 删除物品类型信息
-     * 
+     *
      * @param itemTypeId 物品类型主键
      * @return 结果
      */

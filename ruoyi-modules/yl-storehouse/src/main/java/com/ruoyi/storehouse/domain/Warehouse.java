@@ -7,9 +7,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
  * 仓库对象 warehouse
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 public class Warehouse extends BaseEntity
 {
@@ -38,57 +38,57 @@ public class Warehouse extends BaseEntity
     @Excel(name = "备用列3")
     private String beiyong3;
 
-    public void setWarehouseId(Long warehouseId) 
+    public void setWarehouseId(Long warehouseId)
     {
         this.warehouseId = warehouseId;
     }
 
-    public Long getWarehouseId() 
+    public Long getWarehouseId()
     {
         return warehouseId;
     }
-    public void setOrgId(Long orgId) 
+    public void setOrgId(Long orgId)
     {
         this.orgId = orgId;
     }
 
-    public Long getOrgId() 
+    public Long getOrgId()
     {
         return orgId;
     }
-    public void setWarehouseTypeId(Long warehouseTypeId) 
+    public void setWarehouseTypeId(Long warehouseTypeId)
     {
         this.warehouseTypeId = warehouseTypeId;
     }
 
-    public Long getWarehouseTypeId() 
+    public Long getWarehouseTypeId()
     {
         return warehouseTypeId;
     }
-    public void setBeiyong1(String beiyong1) 
+    public void setBeiyong1(String beiyong1)
     {
         this.beiyong1 = beiyong1;
     }
 
-    public String getBeiyong1() 
+    public String getBeiyong1()
     {
         return beiyong1;
     }
-    public void setBeiyong2(String beiyong2) 
+    public void setBeiyong2(String beiyong2)
     {
         this.beiyong2 = beiyong2;
     }
 
-    public String getBeiyong2() 
+    public String getBeiyong2()
     {
         return beiyong2;
     }
-    public void setBeiyong3(String beiyong3) 
+    public void setBeiyong3(String beiyong3)
     {
         this.beiyong3 = beiyong3;
     }
 
-    public String getBeiyong3() 
+    public String getBeiyong3()
     {
         return beiyong3;
     }

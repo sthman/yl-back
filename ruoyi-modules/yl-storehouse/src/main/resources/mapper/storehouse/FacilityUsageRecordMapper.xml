@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.storehouse.mapper.FacilityUsageRecordMapper">
-    
+
     <resultMap type="FacilityUsageRecord" id="FacilityUsageRecordResult">
         <result property="recordId"    column="record_id"    />
         <result property="userId"    column="user_id"    />
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectFacilityUsageRecordList" parameterType="FacilityUsageRecord" resultMap="FacilityUsageRecordResult">
         <include refid="selectFacilityUsageRecordVo"/>
-        <where>  
+        <where>
             <if test="userId != null "> and user_id = #{userId}</if>
             <if test="usageStartTime != null "> and usage_start_time = #{usageStartTime}</if>
             <if test="usageEndTime != null "> and usage_end_time = #{usageEndTime}</if>
@@ -33,12 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
         </where>
     </select>
-    
+
     <select id="selectFacilityUsageRecordByRecordId" parameterType="Long" resultMap="FacilityUsageRecordResult">
         <include refid="selectFacilityUsageRecordVo"/>
         where record_id = #{recordId}
     </select>
-        
+
     <insert id="insertFacilityUsageRecord" parameterType="FacilityUsageRecord" useGeneratedKeys="true" keyProperty="recordId">
         insert into facility_usage_record
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteFacilityUsageRecordByRecordIds" parameterType="String">
-        delete from facility_usage_record where record_id in 
+        delete from facility_usage_record where record_id in
         <foreach item="recordId" collection="array" open="(" separator="," close=")">
             #{recordId}
         </foreach>

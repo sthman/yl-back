@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.storehouse.mapper.RecipeMapper">
-    
+
     <resultMap type="Recipe" id="RecipeResult">
         <result property="recipeId"    column="recipe_id"    />
         <result property="recipeName"    column="recipe_name"    />
@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectRecipeList" parameterType="Recipe" resultMap="RecipeResult">
         <include refid="selectRecipeVo"/>
-        <where>  
+        <where>
             <if test="recipeName != null  and recipeName != ''"> and recipe_name like concat('%', #{recipeName}, '%')</if>
             <if test="recipeTime != null "> and recipe_time = #{recipeTime}</if>
             <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
@@ -27,12 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
         </where>
     </select>
-    
+
     <select id="selectRecipeByRecipeId" parameterType="Long" resultMap="RecipeResult">
         <include refid="selectRecipeVo"/>
         where recipe_id = #{recipeId}
     </select>
-        
+
     <insert id="insertRecipe" parameterType="Recipe" useGeneratedKeys="true" keyProperty="recipeId">
         insert into recipe
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteRecipeByRecipeIds" parameterType="String">
-        delete from recipe where recipe_id in 
+        delete from recipe where recipe_id in
         <foreach item="recipeId" collection="array" open="(" separator="," close=")">
             #{recipeId}
         </foreach>

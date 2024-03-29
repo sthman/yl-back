@@ -5,15 +5,15 @@ import com.ruoyi.storehouse.domain.Warehouse;
 
 /**
  * 仓库Mapper接口
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
-public interface WarehouseMapper 
+public interface WarehouseMapper
 {
     /**
      * 查询仓库
-     * 
+     *
      * @param warehouseId 仓库主键
      * @return 仓库
      */
@@ -21,7 +21,7 @@ public interface WarehouseMapper
 
     /**
      * 查询仓库列表
-     * 
+     *
      * @param warehouse 仓库
      * @return 仓库集合
      */
@@ -29,7 +29,7 @@ public interface WarehouseMapper
 
     /**
      * 新增仓库
-     * 
+     *
      * @param warehouse 仓库
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface WarehouseMapper
 
     /**
      * 修改仓库
-     * 
+     *
      * @param warehouse 仓库
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface WarehouseMapper
 
     /**
      * 删除仓库
-     * 
+     *
      * @param warehouseId 仓库主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface WarehouseMapper
 
     /**
      * 批量删除仓库
-     * 
+     *
      * @param warehouseIds 需要删除的数据主键集合
      * @return 结果
      */

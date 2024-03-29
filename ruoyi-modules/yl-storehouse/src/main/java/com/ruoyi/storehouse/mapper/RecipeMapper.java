@@ -5,15 +5,15 @@ import com.ruoyi.storehouse.domain.Recipe;
 
 /**
  * 食谱Mapper接口
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
-public interface RecipeMapper 
+public interface RecipeMapper
 {
     /**
      * 查询食谱
-     * 
+     *
      * @param recipeId 食谱主键
      * @return 食谱
      */
@@ -21,7 +21,7 @@ public interface RecipeMapper
 
     /**
      * 查询食谱列表
-     * 
+     *
      * @param recipe 食谱
      * @return 食谱集合
      */
@@ -29,7 +29,7 @@ public interface RecipeMapper
 
     /**
      * 新增食谱
-     * 
+     *
      * @param recipe 食谱
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface RecipeMapper
 
     /**
      * 修改食谱
-     * 
+     *
      * @param recipe 食谱
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface RecipeMapper
 
     /**
      * 删除食谱
-     * 
+     *
      * @param recipeId 食谱主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface RecipeMapper
 
     /**
      * 批量删除食谱
-     * 
+     *
      * @param recipeIds 需要删除的数据主键集合
      * @return 结果
      */

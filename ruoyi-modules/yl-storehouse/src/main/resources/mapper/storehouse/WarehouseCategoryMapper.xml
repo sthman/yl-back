@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.storehouse.mapper.WarehouseCategoryMapper">
-    
+
     <resultMap type="WarehouseCategory" id="WarehouseCategoryResult">
         <result property="warehouseTypeId"    column="warehouse_type_id"    />
         <result property="warehouseTypeName"    column="warehouse_type_name"    />
@@ -18,19 +18,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectWarehouseCategoryList" parameterType="WarehouseCategory" resultMap="WarehouseCategoryResult">
         <include refid="selectWarehouseCategoryVo"/>
-        <where>  
+        <where>
             <if test="warehouseTypeName != null  and warehouseTypeName != ''"> and warehouse_type_name like concat('%', #{warehouseTypeName}, '%')</if>
             <if test="beiyong1 != null  and beiyong1 != ''"> and beiyong1 = #{beiyong1}</if>
             <if test="beiyong2 != null  and beiyong2 != ''"> and beiyong2 = #{beiyong2}</if>
             <if test="beiyong3 != null  and beiyong3 != ''"> and beiyong3 = #{beiyong3}</if>
         </where>
     </select>
-    
+
     <select id="selectWarehouseCategoryByWarehouseTypeId" parameterType="Long" resultMap="WarehouseCategoryResult">
         <include refid="selectWarehouseCategoryVo"/>
         where warehouse_type_id = #{warehouseTypeId}
     </select>
-        
+
     <insert id="insertWarehouseCategory" parameterType="WarehouseCategory" useGeneratedKeys="true" keyProperty="warehouseTypeId">
         insert into warehouse_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteWarehouseCategoryByWarehouseTypeIds" parameterType="String">
-        delete from warehouse_category where warehouse_type_id in 
+        delete from warehouse_category where warehouse_type_id in
         <foreach item="warehouseTypeId" collection="array" open="(" separator="," close=")">
             #{warehouseTypeId}
         </foreach>

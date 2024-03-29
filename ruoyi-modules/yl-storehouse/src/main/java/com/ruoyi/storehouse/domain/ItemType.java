@@ -7,9 +7,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
  * 物品类型对象 item_type
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 public class ItemType extends BaseEntity
 {
@@ -34,48 +34,48 @@ public class ItemType extends BaseEntity
     @Excel(name = "备用列3")
     private String beiyong3;
 
-    public void setItemTypeId(Long itemTypeId) 
+    public void setItemTypeId(Long itemTypeId)
     {
         this.itemTypeId = itemTypeId;
     }
 
-    public Long getItemTypeId() 
+    public Long getItemTypeId()
     {
         return itemTypeId;
     }
-    public void setItemTypeName(String itemTypeName) 
+    public void setItemTypeName(String itemTypeName)
     {
         this.itemTypeName = itemTypeName;
     }
 
-    public String getItemTypeName() 
+    public String getItemTypeName()
     {
         return itemTypeName;
     }
-    public void setBeiyong1(String beiyong1) 
+    public void setBeiyong1(String beiyong1)
     {
         this.beiyong1 = beiyong1;
     }
 
-    public String getBeiyong1() 
+    public String getBeiyong1()
     {
         return beiyong1;
     }
-    public void setBeiyong2(String beiyong2) 
+    public void setBeiyong2(String beiyong2)
     {
         this.beiyong2 = beiyong2;
     }
 
-    public String getBeiyong2() 
+    public String getBeiyong2()
     {
         return beiyong2;
     }
-    public void setBeiyong3(String beiyong3) 
+    public void setBeiyong3(String beiyong3)
     {
         this.beiyong3 = beiyong3;
     }
 
-    public String getBeiyong3() 
+    public String getBeiyong3()
     {
         return beiyong3;
     }
