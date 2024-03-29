@@ -9,19 +9,19 @@ import com.ruoyi.storehouse.service.IRecipeService;
 
 /**
  * 食谱Service业务层处理
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 @Service
-public class RecipeServiceImpl implements IRecipeService 
+public class RecipeServiceImpl implements IRecipeService
 {
     @Autowired
     private RecipeMapper recipeMapper;
 
     /**
      * 查询食谱
-     * 
+     *
      * @param recipeId 食谱主键
      * @return 食谱
      */
@@ -33,7 +33,7 @@ public class RecipeServiceImpl implements IRecipeService
 
     /**
      * 查询食谱列表
-     * 
+     *
      * @param recipe 食谱
      * @return 食谱
      */
@@ -45,7 +45,7 @@ public class RecipeServiceImpl implements IRecipeService
 
     /**
      * 新增食谱
-     * 
+     *
      * @param recipe 食谱
      * @return 结果
      */
@@ -57,7 +57,7 @@ public class RecipeServiceImpl implements IRecipeService
 
     /**
      * 修改食谱
-     * 
+     *
      * @param recipe 食谱
      * @return 结果
      */
@@ -69,7 +69,7 @@ public class RecipeServiceImpl implements IRecipeService
 
     /**
      * 批量删除食谱
-     * 
+     *
      * @param recipeIds 需要删除的食谱主键
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class RecipeServiceImpl implements IRecipeService
 
     /**
      * 删除食谱信息
-     * 
+     *
      * @param recipeId 食谱主键
      * @return 结果
      */

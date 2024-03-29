@@ -2,6 +2,8 @@ package com.ruoyi.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.system.service.ISysLogininforService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,10 @@ import com.ruoyi.common.redis.service.RedisService;
 import com.ruoyi.common.security.annotation.InnerAuth;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
 import com.ruoyi.system.api.domain.SysLogininfor;
-import com.ruoyi.system.service.ISysLogininforService;
 
 /**
  * 系统访问记录
- * 
+ *
  * @author ruoyi
  */
 @RestController

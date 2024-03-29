@@ -7,9 +7,9 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
  * 仓库类型对象 warehouse_category
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 public class WarehouseCategory extends BaseEntity
 {
@@ -34,48 +34,48 @@ public class WarehouseCategory extends BaseEntity
     @Excel(name = "备用列3")
     private String beiyong3;
 
-    public void setWarehouseTypeId(Long warehouseTypeId) 
+    public void setWarehouseTypeId(Long warehouseTypeId)
     {
         this.warehouseTypeId = warehouseTypeId;
     }
 
-    public Long getWarehouseTypeId() 
+    public Long getWarehouseTypeId()
     {
         return warehouseTypeId;
     }
-    public void setWarehouseTypeName(String warehouseTypeName) 
+    public void setWarehouseTypeName(String warehouseTypeName)
     {
         this.warehouseTypeName = warehouseTypeName;
     }
 
-    public String getWarehouseTypeName() 
+    public String getWarehouseTypeName()
     {
         return warehouseTypeName;
     }
-    public void setBeiyong1(String beiyong1) 
+    public void setBeiyong1(String beiyong1)
     {
         this.beiyong1 = beiyong1;
     }
 
-    public String getBeiyong1() 
+    public String getBeiyong1()
     {
         return beiyong1;
     }
-    public void setBeiyong2(String beiyong2) 
+    public void setBeiyong2(String beiyong2)
     {
         this.beiyong2 = beiyong2;
     }
 
-    public String getBeiyong2() 
+    public String getBeiyong2()
     {
         return beiyong2;
     }
-    public void setBeiyong3(String beiyong3) 
+    public void setBeiyong3(String beiyong3)
     {
         this.beiyong3 = beiyong3;
     }
 
-    public String getBeiyong3() 
+    public String getBeiyong3()
     {
         return beiyong3;
     }

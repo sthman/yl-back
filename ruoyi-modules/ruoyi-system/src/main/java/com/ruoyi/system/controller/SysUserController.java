@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +42,7 @@ import com.ruoyi.system.service.ISysUserService;
 
 /**
  * 用户信息
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -151,7 +152,7 @@ public class SysUserController extends BaseController
 
     /**
      * 获取用户信息
-     * 
+     *
      * @return 用户信息
      */
     @GetMapping("getInfo")

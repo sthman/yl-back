@@ -3,18 +3,19 @@ package com.ruoyi.system.service.impl;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.ruoyi.system.service.ISysMenuService;
+import com.ruoyi.system.service.ISysPermissionService;
+import com.ruoyi.system.service.ISysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import com.ruoyi.system.api.domain.SysRole;
 import com.ruoyi.system.api.domain.SysUser;
-import com.ruoyi.system.service.ISysMenuService;
-import com.ruoyi.system.service.ISysPermissionService;
-import com.ruoyi.system.service.ISysRoleService;
 
 /**
  * 用户权限处理
- * 
+ *
  * @author ruoyi
  */
 @Service
@@ -28,7 +29,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService
 
     /**
      * 获取角色数据权限
-     * 
+     *
      * @param userId 用户Id
      * @return 角色权限信息
      */
@@ -50,7 +51,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService
 
     /**
      * 获取菜单数据权限
-     * 
+     *
      * @param userId 用户Id
      * @return 菜单权限信息
      */

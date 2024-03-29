@@ -20,7 +20,7 @@ import com.ruoyi.system.api.model.LoginUser;
 
 /**
  * 登录校验方法
- * 
+ *
  * @author ruoyi
  */
 @Component
@@ -83,7 +83,7 @@ public class SysLoginService
         {
             throw new ServiceException(userResult.getMsg());
         }
-        
+
         LoginUser userInfo = userResult.getData();
         SysUser user = userResult.getData().getSysUser();
         if (UserStatus.DELETED.getCode().equals(user.getDelFlag()))

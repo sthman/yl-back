@@ -9,7 +9,7 @@ import com.ruoyi.system.api.domain.SysOperLog;
 
 /**
  * 异步调用日志服务
- * 
+ *
  * @author ruoyi
  */
 @Service

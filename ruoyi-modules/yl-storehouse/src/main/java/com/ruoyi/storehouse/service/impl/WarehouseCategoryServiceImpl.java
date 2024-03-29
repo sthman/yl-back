@@ -9,19 +9,19 @@ import com.ruoyi.storehouse.service.IWarehouseCategoryService;
 
 /**
  * 仓库类型Service业务层处理
- * 
+ *
  * @author ruoyi
- * @date 2024-03-27
+ * @date 2024-03-29
  */
 @Service
-public class WarehouseCategoryServiceImpl implements IWarehouseCategoryService 
+public class WarehouseCategoryServiceImpl implements IWarehouseCategoryService
 {
     @Autowired
     private WarehouseCategoryMapper warehouseCategoryMapper;
 
     /**
      * 查询仓库类型
-     * 
+     *
      * @param warehouseTypeId 仓库类型主键
      * @return 仓库类型
      */
@@ -33,7 +33,7 @@ public class WarehouseCategoryServiceImpl implements IWarehouseCategoryService
 
     /**
      * 查询仓库类型列表
-     * 
+     *
      * @param warehouseCategory 仓库类型
      * @return 仓库类型
      */
@@ -45,7 +45,7 @@ public class WarehouseCategoryServiceImpl implements IWarehouseCategoryService
 
     /**
      * 新增仓库类型
-     * 
+     *
      * @param warehouseCategory 仓库类型
      * @return 结果
      */
@@ -57,7 +57,7 @@ public class WarehouseCategoryServiceImpl implements IWarehouseCategoryService
 
     /**
      * 修改仓库类型
-     * 
+     *
      * @param warehouseCategory 仓库类型
      * @return 结果
      */
@@ -69,7 +69,7 @@ public class WarehouseCategoryServiceImpl implements IWarehouseCategoryService
 
     /**
      * 批量删除仓库类型
-     * 
+     *
      * @param warehouseTypeIds 需要删除的仓库类型主键
      * @return 结果
      */
@@ -81,7 +81,7 @@ public class WarehouseCategoryServiceImpl implements IWarehouseCategoryService
 
     /**
      * 删除仓库类型信息
-     * 
+     *
      * @param warehouseTypeId 仓库类型主键
      * @return 结果
      */

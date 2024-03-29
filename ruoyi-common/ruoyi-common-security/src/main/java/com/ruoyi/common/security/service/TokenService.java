@@ -21,7 +21,7 @@ import com.ruoyi.system.api.model.LoginUser;
 
 /**
  * token验证处理
- * 
+ *
  * @author ruoyi
  */
 @Component
