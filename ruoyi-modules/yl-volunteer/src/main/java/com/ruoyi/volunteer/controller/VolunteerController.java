@@ -84,9 +84,6 @@ public class VolunteerController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Volunteer volunteer)
     {
-
-
-        //TODO 在新增志愿者时，新增用户，并为其分配身份为志愿者
         SysUser sysUser = new SysUser();
         sysUser.setUserName(volunteer.getUserName());
         sysUser.setNickName(volunteer.getUserNikeName());
