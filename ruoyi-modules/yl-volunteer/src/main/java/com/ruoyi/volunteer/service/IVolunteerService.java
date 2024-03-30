@@ -1,5 +1,6 @@
 package com.ruoyi.volunteer.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.ruoyi.volunteer.domain.Volunteer;
 
@@ -58,4 +59,12 @@ public interface IVolunteerService
      * @return 结果
      */
     public int deleteVolunteerByVStar(Long vStar);
+
+    /**
+     * 根据userId查询积分
+     * @param userId
+     * @return
+     */
+    public BigDecimal findStarByUserId(Long userId);
+
 }

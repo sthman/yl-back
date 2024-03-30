@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectVServiceVo"/>
         where v_service_id = #{vServiceId}
     </select>
-        
+
     <insert id="insertVService" parameterType="VService" useGeneratedKeys="true" keyProperty="vServiceId">
         insert into v_service
         <trim prefix="(" suffix=")" suffixOverrides=",">

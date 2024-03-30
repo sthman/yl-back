@@ -69,12 +69,14 @@ public class VolunteerController extends BaseController
     /**
      * 获取志愿者详细信息
      */
+    //TODO 通过userid查询用户表中对应的用户信息和志愿者表中的积分
     @RequiresPermissions("volunteer:volunteer:query")
     @GetMapping(value = "/{vStar}")
     public AjaxResult getInfo(@PathVariable("vStar") Long vStar)
     {
         return success(volunteerService.selectVolunteerByVStar(vStar));
     }
+
 
     /**
      * 新增志愿者
@@ -96,6 +98,7 @@ public class VolunteerController extends BaseController
         Integer userId = integerR.getData();
         volunteer.setUserId(Long.valueOf(userId));
         volunteer.setvStatus(1L);
+        volunteer.setvStar(0L);
         return toAjax(volunteerService.insertVolunteer(volunteer));
     }
 

@@ -33,7 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectVolunteerVo"/>
         where v_star = #{vStar}
     </select>
-        
+
+    <select id="findStarByUserId" resultType="java.math.BigDecimal">
+        select v_star
+        from volunteer where user_id = #{userId};
+    </select>
+
     <insert id="insertVolunteer" parameterType="Volunteer">
         insert into volunteer
         <trim prefix="(" suffix=")" suffixOverrides=",">

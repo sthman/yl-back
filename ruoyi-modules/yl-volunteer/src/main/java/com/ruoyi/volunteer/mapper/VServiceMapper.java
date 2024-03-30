@@ -1,5 +1,6 @@
 package com.ruoyi.volunteer.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.ruoyi.volunteer.domain.VService;
 
@@ -58,4 +59,6 @@ public interface VServiceMapper
      * @return 结果
      */
     public int deleteVServiceByVServiceIds(Long[] vServiceIds);
+
+
 }
