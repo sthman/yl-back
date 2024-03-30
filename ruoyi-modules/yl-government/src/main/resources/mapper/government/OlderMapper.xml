@@ -37,9 +37,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectOlderByOlderAge" parameterType="Long" resultMap="OlderResult">
+    <select id="selectOlderByUserId" parameterType="Long" resultMap="OlderResult">
         <include refid="selectOlderVo"/>
-        where older_age = #{olderAge}
+        where user_id = #{userId}
     </select>
         
     <insert id="insertOlder" parameterType="Older">

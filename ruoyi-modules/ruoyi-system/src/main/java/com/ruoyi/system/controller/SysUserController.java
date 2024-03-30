@@ -149,6 +149,30 @@ public class SysUserController extends BaseController
         return R.ok(userService.registerUser(sysUser));
     }
 
+
+    @InnerAuth
+    @PostMapping("/add")
+    public R<Integer> remoteAdd(@Validated @RequestBody SysUser user)
+    {
+        if (!userService.checkUserNameUnique(user))
+        {
+            return R.fail("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
+        }
+        else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user))
+        {
+            return R.fail("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
+        }
+        else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user))
+        {
+            return R.fail("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+        }
+        user.setCreateBy(SecurityUtils.getUsername());
+        user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
+        int userId = userService.insertUser(user);
+
+        return R.ok(userId);
+    }
+
     /**
      * 获取用户信息
      * 
@@ -190,6 +214,7 @@ public class SysUserController extends BaseController
         }
         return ajax;
     }
+
 
     /**
      * 新增用户

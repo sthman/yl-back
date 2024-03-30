@@ -14,10 +14,10 @@ public interface OlderMapper
     /**
      * 查询老人信息
      * 
-     * @param olderAge 老人信息主键
+     * @param userId 用户id
      * @return 老人信息
      */
-    public Older selectOlderByOlderAge(Long olderAge);
+    public Older selectOlderByUserId(Long userId);
 
     /**
      * 查询老人信息列表
