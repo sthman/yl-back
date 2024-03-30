@@ -61,4 +61,6 @@ public interface IOlderService
     public int deleteOlderByOlderAge(Long olderAge);
 
     public int addOlderByUser(SysUser user);
+
+    public int addOlderByAddUser(Long userId);
 }
