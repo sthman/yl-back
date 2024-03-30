@@ -102,4 +102,16 @@ public class OlderController extends BaseController
     {
         return toAjax(olderService.deleteOlderByOlderAges(olderAges));
     }
+
+
+    /**
+     * 新增用户时新增老人信息
+     */
+    @RequiresPermissions("government:older:add")
+    @Log(title = "老人信息", businessType = BusinessType.INSERT)
+    @PostMapping("/addOlderByAddUser")
+    public AjaxResult addOlderByAddUser(@RequestBody Long userId)
+    {
+        return toAjax(olderService.addOlderByAddUser(userId));
+    }
 }
