@@ -42,6 +42,9 @@ public interface RemoteUserService
     @PostMapping("/user/register")
     public R<Boolean> registerUserInfo(@RequestBody SysUser sysUser, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 
+    @PostMapping("/user/findUserByUserId")
+    public R<SysUser> findUserByUserId(@RequestBody Long userId);
+
     /**
      * 新增用户
      */

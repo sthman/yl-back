@@ -64,10 +64,10 @@ public class OlderController extends BaseController
      * 获取老人信息详细信息
      */
     @RequiresPermissions("government:older:query")
-    @GetMapping(value = "/{olderAge}")
-    public AjaxResult getInfo(@PathVariable("olderAge") Long olderAge)
+    @GetMapping(value = "/{userId}")
+    public AjaxResult getInfo(@PathVariable("userId") Long userId)
     {
-        return success(olderService.selectOlderByOlderAge(olderAge));
+        return success(olderService.selectOlderByUserId(userId));
     }
 
     /**

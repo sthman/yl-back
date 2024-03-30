@@ -1,6 +1,10 @@
 package com.ruoyi.government.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.core.domain.R;
+import com.ruoyi.system.api.RemoteUserService;
+import com.ruoyi.system.api.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.government.mapper.OlderMapper;
@@ -19,16 +23,23 @@ public class OlderServiceImpl implements IOlderService
     @Autowired
     private OlderMapper olderMapper;
 
+    @Autowired
+    private RemoteUserService userService;
+
     /**
      * 查询老人信息
      * 
-     * @param olderAge 老人信息主键
+     * @param userId 用户id
      * @return 老人信息
      */
     @Override
-    public Older selectOlderByOlderAge(Long olderAge)
+    public Older selectOlderByUserId(Long userId)
     {
-        return olderMapper.selectOlderByOlderAge(olderAge);
+        Older older = olderMapper.selectOlderByUserId(userId);
+        R<SysUser> r = userService.findUserByUserId(userId);
+        SysUser user = r.getData();
+        older.setUser(user);
+        return older;
     }
 
     /**
@@ -40,7 +51,12 @@ public class OlderServiceImpl implements IOlderService
     @Override
     public List<Older> selectOlderList(Older older)
     {
-        return olderMapper.selectOlderList(older);
+        List<Older> olders = olderMapper.selectOlderList(older);
+        olders.stream().forEach(older1 -> {
+            SysUser user = userService.findUserByUserId(older1.getUserId()).getData();
+            older1.setUser(user);
+        });
+        return olders;
     }
 
     /**
@@ -89,5 +105,13 @@ public class OlderServiceImpl implements IOlderService
     public int deleteOlderByOlderAge(Long olderAge)
     {
         return olderMapper.deleteOlderByOlderAge(olderAge);
+    }
+
+    @Override
+    public int addOlderByUser(SysUser user) {
+        Older older = new Older();
+        older.setUserId(user.getUserId());
+        older.setOlderUserStatus(1L);
+        return olderMapper.insertOlder(older);
     }
 }

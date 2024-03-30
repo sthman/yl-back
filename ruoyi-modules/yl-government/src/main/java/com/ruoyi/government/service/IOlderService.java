@@ -2,6 +2,7 @@ package com.ruoyi.government.service;
 
 import java.util.List;
 import com.ruoyi.government.domain.Older;
+import com.ruoyi.system.api.domain.SysUser;
 
 /**
  * 老人信息Service接口
@@ -9,15 +10,15 @@ import com.ruoyi.government.domain.Older;
  * @author ruoyi
  * @date 2024-03-27
  */
-public interface IOlderService 
+public interface IOlderService
 {
     /**
      * 查询老人信息
      * 
-     * @param olderAge 老人信息主键
+     * @param userId 用户id
      * @return 老人信息
      */
-    public Older selectOlderByOlderAge(Long olderAge);
+    public Older selectOlderByUserId(Long userId);
 
     /**
      * 查询老人信息列表
@@ -58,4 +59,6 @@ public interface IOlderService
      * @return 结果
      */
     public int deleteOlderByOlderAge(Long olderAge);
+
+    public int addOlderByUser(SysUser user);
 }
