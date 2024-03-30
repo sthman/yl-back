@@ -348,4 +348,15 @@ public class SysUserController extends BaseController
     {
         return success(deptService.selectDeptTreeList(dept));
     }
+
+    /**
+     * 根据用户id查询用户
+     * @param userId
+     * @return
+     */
+    @PostMapping("/findUserByUserId")
+    public R<SysUser> findUserByUserId(@RequestBody Long userId) {
+        SysUser user = userService.selectUserById(userId);
+        return R.ok(user);
+    }
 }

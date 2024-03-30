@@ -54,6 +54,7 @@ public class OlderServiceImpl implements IOlderService
         List<Older> olders = olderMapper.selectOlderList(older);
         olders.stream().forEach(older1 -> {
             SysUser user = userService.findUserByUserId(older1.getUserId()).getData();
+            System.out.println("user = " + user);
             older1.setUser(user);
         });
         return olders;
