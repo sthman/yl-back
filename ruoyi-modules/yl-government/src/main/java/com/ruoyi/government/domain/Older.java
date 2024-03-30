@@ -2,6 +2,7 @@ package com.ruoyi.government.domain;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.system.api.domain.SysUser;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
@@ -58,7 +59,17 @@ public class Older extends BaseEntity
     @Excel(name = "备用列3")
     private String beiyong3;
 
-    public void setOlderAge(Long olderAge) 
+    private SysUser user;
+
+    public SysUser getUser() {
+        return user;
+    }
+
+    public void setUser(SysUser user) {
+        this.user = user;
+    }
+
+    public void setOlderAge(Long olderAge)
     {
         this.olderAge = olderAge;
     }

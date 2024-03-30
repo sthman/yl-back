@@ -1,6 +1,7 @@
 package com.ruoyi.system.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,4 +41,13 @@ public interface RemoteUserService
      */
     @PostMapping("/user/register")
     public R<Boolean> registerUserInfo(@RequestBody SysUser sysUser, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+
+    @PostMapping("/user/findUserByUserId")
+    public R<SysUser> findUserByUserId(@RequestBody Long userId);
+
+    /**
+     * 新增用户
+     */
+    @PostMapping("/user/add")
+    public R<Integer> addUserInfo(@Validated @RequestBody SysUser user,@RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 }

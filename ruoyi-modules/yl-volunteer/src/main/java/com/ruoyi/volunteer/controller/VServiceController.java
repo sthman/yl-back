@@ -3,6 +3,9 @@ package com.ruoyi.volunteer.controller;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+
+import com.ruoyi.volunteer.domain.PointsUsageRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -102,4 +105,14 @@ public class VServiceController extends BaseController
     {
         return toAjax(vServiceService.deleteVServiceByVServiceIds(vServiceIds));
     }
+
+    /**
+     * 购买积分服务
+     */
+
+    @PostMapping("/buyVservice")
+    public AjaxResult buyVservice(@RequestBody PointsUsageRecord pointsUsageRecord){
+        return toAjax(vServiceService.buyVservice(pointsUsageRecord));
+    }
+
 }

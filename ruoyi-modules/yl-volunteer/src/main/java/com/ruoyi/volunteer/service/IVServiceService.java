@@ -1,6 +1,8 @@
 package com.ruoyi.volunteer.service;
 
 import java.util.List;
+
+import com.ruoyi.volunteer.domain.PointsUsageRecord;
 import com.ruoyi.volunteer.domain.VService;
 
 /**
@@ -58,4 +60,7 @@ public interface IVServiceService
      * @return 结果
      */
     public int deleteVServiceByVServiceId(Long vServiceId);
+
+    //购买积分服务
+    public int buyVservice(PointsUsageRecord pointsUsageRecord);
 }

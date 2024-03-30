@@ -64,10 +64,10 @@ public class OlderController extends BaseController
      * 获取老人信息详细信息
      */
     @RequiresPermissions("government:older:query")
-    @GetMapping(value = "/{olderAge}")
-    public AjaxResult getInfo(@PathVariable("olderAge") Long olderAge)
+    @GetMapping(value = "/{userId}")
+    public AjaxResult getInfo(@PathVariable("userId") Long userId)
     {
-        return success(olderService.selectOlderByOlderAge(olderAge));
+        return success(olderService.selectOlderByUserId(userId));
     }
 
     /**
@@ -101,5 +101,17 @@ public class OlderController extends BaseController
     public AjaxResult remove(@PathVariable Long[] olderAges)
     {
         return toAjax(olderService.deleteOlderByOlderAges(olderAges));
+    }
+
+
+    /**
+     * 新增用户时新增老人信息
+     */
+    @RequiresPermissions("government:older:add")
+    @Log(title = "老人信息", businessType = BusinessType.INSERT)
+    @PostMapping("/addOlderByAddUser")
+    public AjaxResult addOlderByAddUser(@RequestBody Long userId)
+    {
+        return toAjax(olderService.addOlderByAddUser(userId));
     }
 }

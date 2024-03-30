@@ -1,6 +1,11 @@
 package com.ruoyi.volunteer.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import com.ruoyi.common.core.domain.R;
+import com.ruoyi.system.api.RemoteUserService;
+import com.ruoyi.system.api.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.volunteer.mapper.VolunteerMapper;
@@ -18,6 +23,8 @@ public class VolunteerServiceImpl implements IVolunteerService
 {
     @Autowired
     private VolunteerMapper volunteerMapper;
+    @Autowired
+    private RemoteUserService remoteUserService;
 
     /**
      * 查询志愿者
@@ -40,7 +47,12 @@ public class VolunteerServiceImpl implements IVolunteerService
     @Override
     public List<Volunteer> selectVolunteerList(Volunteer volunteer)
     {
-        return volunteerMapper.selectVolunteerList(volunteer);
+        List<Volunteer> volunteers = volunteerMapper.selectVolunteerList(volunteer);
+        for (Volunteer v : volunteers) {
+            R<SysUser> user = remoteUserService.findUserByUserId(v.getUserId());
+            v.setUserName(user.getData().getUserName());
+        }
+        return volunteers;
     }
 
     /**
@@ -89,5 +101,16 @@ public class VolunteerServiceImpl implements IVolunteerService
     public int deleteVolunteerByVStar(Long vStar)
     {
         return volunteerMapper.deleteVolunteerByVStar(vStar);
+    }
+
+    /**
+     * 根据userId查询积分
+     * @param userId
+     * @return
+     */
+    @Override
+    public BigDecimal findStarByUserId(Long userId) {
+        BigDecimal starByUserId = volunteerMapper.findStarByUserId(userId);
+        return starByUserId;
     }
 }
