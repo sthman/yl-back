@@ -164,7 +164,8 @@ public class TokenService
         loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
-        redisService.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
+//        redisService.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
+        redisService.setCacheObject(userKey, loginUser);
     }
 
     private String getTokenKey(String token)
